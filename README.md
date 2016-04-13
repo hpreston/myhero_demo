@@ -41,6 +41,7 @@ Run `./myhero-scaleweb.sh` to have options to change the number of web and app i
 
 ## Advanced Demos
 
+### Installation
 If you would rather demo deploying each service independently you can use these sample curl commands.  These commands assume that you've run `source myhero_setup` to store environment variables for key details.
 
 * Deploy the data service
@@ -51,7 +52,22 @@ If you would rather demo deploying each service independently you can use these 
 * Deploy the web service
   * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-web.json | python -m json.tool`
   * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\"}}" | python -m json.tool`
+
+### Scaling a Service
 * To scale up the web service
   * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web -H "Content-type: application/json" -d '{"instances":5}' | python -m json.tool`
+
+### Getting Details on a Service
 * To get the details on one of the services
   * `curl -k -X GET -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web -H "Content-type: application/json" | python -m json.tool`
+
+### Interfacing with the App Tier API
+
+A strength of Modern Applciations are that you can interact with any of the services directly through APIs if the native interface isn't desireable.  Here are some examples interacting with the app service directly.
+
+* View the list of potential Superheros to vote for.
+  * `curl http://myhero-app.$MANTL_DOMAIN/hero_list`
+* View the current standings.
+  * `curl http://myhero-app.$MANTL_DOMAIN/results`
+* Place a vote for a hero
+  * `curl http://myhero-app.$MANTL_DOMAIN/vote/Batman`
