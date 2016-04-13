@@ -1,0 +1,25 @@
+{
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "hpreston/myhero_app",
+            "network": "BRIDGE",
+            "portMappings": [{
+                "containerPort": 5000,
+                "hostPort": 0
+            }]
+        },
+        "forcePullImage": true
+    },
+    "healthChecks": [{
+        "protocol": "TCP",
+        "portIndex": 0
+    }],
+    "id": "/myhero/app",
+    "instances": 2,
+    "cpus": 0.5,
+    "mem": 32,
+    "env": {
+        "myhero_data_server": "http://myhero-data"
+    }
+}
