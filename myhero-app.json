@@ -3,6 +3,7 @@
         "type": "DOCKER",
         "docker": {
             "image": "hpreston/myhero_app",
+            "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
                 "containerPort": 5000,
