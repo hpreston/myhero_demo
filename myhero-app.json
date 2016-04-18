@@ -21,6 +21,8 @@
     "cpus": 0.5,
     "mem": 32,
     "env": {
-        "myhero_data_server": "http://myhero-data"
+        "myhero_data_server": "http://myhero-data",
+        "myhero_data_key": "SecureData",
+        "myhero_app_key": "SecureApp"
     }
 }
