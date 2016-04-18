@@ -19,7 +19,7 @@
     "id": "/myhero/data",
     "instances": 1,
     "cpus": 0.5,
-    "mem": 32
+    "mem": 32,
     "env": {
         "myhero_data_key": "SecureData"
     }
