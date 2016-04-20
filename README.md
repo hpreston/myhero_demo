@@ -68,11 +68,11 @@ If you would rather demo deploying each service independently you can use these 
 A strength of Modern Applications are that you can interact with any of the services directly through APIs if the native interface isn't desireable.  Here are some examples interacting with the app service directly.
 
 * View the list of potential Superheros to vote for.
-  * `curl http://myhero-app.$MANTL_DOMAIN/hero_list`
+  * `curl -H "key: SecureApp" http://myhero-app.$MANTL_DOMAIN/options`
 * View the current standings.
-  * `curl http://myhero-app.$MANTL_DOMAIN/results`
+  * `curl -H "key: SecureApp" http://myhero-app.$MANTL_DOMAIN/results`
 * Place a vote for a hero
-  * `curl http://myhero-app.$MANTL_DOMAIN/vote/Batman`
+  * `curl -H "key: SecureApp" -X POST http://myhero-app.$MANTL_DOMAIN/vote/Batman`
 
 ## Other Mantl Demo Ideas
 
