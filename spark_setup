@@ -1,0 +1,17 @@
+
+echo Please provide basic details on your Cisco Spark Account.
+echo
+echo "What is your Cisco Spark Email Address: "
+read spark_email
+echo
+echo "What is your Cisco Spark Developer Token: "
+read spark_token
+echo
+
+
+export SPARK_EMAIL="$spark_email"
+export SPARK_TOKEN="$spark_token"
+
+echo "Spark Bot will be setup using: "
+echo "$SPARK_EMAIL"
+
