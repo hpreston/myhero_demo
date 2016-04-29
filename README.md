@@ -90,6 +90,20 @@ A strength of Modern Applications are that you can interact with any of the serv
 * Place a vote for a hero
   * `curl -H "key: SecureApp" -X POST http://myhero-app.$MANTL_DOMAIN/vote/Batman`
 
+## MyHero Service Code and Containers
+Code for the servers:
+* Data - [hpreston/myhero_data](https://github.com/hpreston/myhero_data)
+* App - [hpreston/myhero_app](https://github.com/hpreston/myhero_app)
+* Web - [hpreston/myhero_web](https://github.com/hpreston/myhero_web)
+* Spark Bot - [hpreston/myhero_spark](https://github.com/hpreston/myhero_spark)
+
+The docker containers are available at
+* Data - [hpreston/myhero_data](https://hub.docker.com/r/hpreston/myhero_data)
+* App - [hpreston/myhero_app](https://hub.docker.com/r/hpreston/myhero_app)
+* Web - [hpreston/myhero_web](https://hub.docker.com/r/hpreston/myhero_web)
+* Spark Bot - [hpreston/myhero_spark](https://hub.docker.com/r/hpreston/myhero_spark)
+
+
 ## Other Mantl Demo Ideas
 
 Here are some other ideas for demo's to run with Mantl.  Several of these leverage example content delivered with the Mantl code in the examples/ directory.  Others deploy Mesos frameworks using the Mantl API.

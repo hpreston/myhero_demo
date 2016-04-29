@@ -1,8 +1,10 @@
 # MyHero Demo Spark Bot Setup
 
+[Back to MyHero Demo Setup](./README.md)
+
 ## Prerequisites
 
-In order to leverage this demonstration, should have already installed the base MyHere Demo app and have the Data and App Services up and Operational.
+In order to leverage this demonstration, should have already installed the base MyHero Demo app and have the Data and App Services up and Operational.
 
 ## Spark Developer Account Requirement
 In order to use this service, you will need a Cisco Spark Account to use for the bot.  You can leverage your personal Spark Account or create a new one to be used by the service.  I recommend creating a new one to make testing easier (i.e. if you use your own it will be hard to chat with yourself).
@@ -22,7 +24,8 @@ In order to access the APIs of Spark, this bot needs the Developer Token for you
 ## Setup
 
 * Run `source myhero_setup` to enter and record the address, application domain, username, and password for your Mantl instance as non-persistent Environment Variables.  This means you will need to run this command everytime you open an new terminal session.
-* Run `source spark_setup` to enter your Spark Email ACcount and Token that will be saved as non-persistent Environment Variables.  This means you will need to run this command everytime you open a new terminal instance.
+  * If you've already run this to install the MyHero Demo web, app, and data services, you do NOT need to run again.
+* Run `source spark_setup` to enter your Spark Email Account and Token that will be saved as non-persistent Environment Variables.  This means you will need to run this command everytime you open a new terminal instance.
 
 
 ## Install
