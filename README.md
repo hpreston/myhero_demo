@@ -15,6 +15,22 @@ The application is built in a microservice style wrapping each service in a dock
 
 All of the demo details here make use of the Mantl or Marathon APIs to build and manage applciations.  If you prefer to use the different GUIs to execute the demos, you can use the JSON files to find the details needed to configure manually.
 
+# Optional Additional Services
+A great application today allows users to interact with the service in whichever way the end user prefers.  No longer should we be satisfied with simply a web interface on a desktop or laptop.  Users are looking for options such as:
+* Mobile - smartphones and tablets
+* Wearables - smartwatches
+* Realtime Chat
+* Voice Interaction
+* Gesture Based
+* and more
+
+So with this in mind, MyHero offers some optional additional services for a fuller experienece.  Check back often as the list of optional services will grow overtime.
+
+## Cisco Spark Bot
+Realtime Chat is becoming very popular with consumer as well as professional world.  Cisco Spark is an enterprise collaboration platform offering text, voice, and video options for group and one on one communciations.  MyHero now can leverage Cisco Spark to allow users to Chat with a Spark Bot to learn about the voting service, find out current results, and cast votes.
+
+To setup the Spark Bot visit [Spark Bot Setup](./spark_setup.md)
+
 ## Prerequisites
 
 In order to leverage this demonstration, you will need to have a Mantl cluster up and functional already.  For help with this visit the Docs site available at [http://mantl.io](http://mantl.io).  You will need to have the address for the control nodes and a username and password for an active account.
