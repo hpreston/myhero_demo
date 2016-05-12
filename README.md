@@ -65,6 +65,10 @@ Run `./myhero-uninstall.sh` to remove all three services from Marathon.
 ## Advanced Optional Deployment Using MQTT Server and Queuing
 **IN DEVELOPMENT - MAY NOT BE READY FOR WIDE USAGE**
 
+If you'd like to work with an application leveraging more services and components, there is an optional mode deployment that adds a MQTT server to the vote processing functions.  This will reduce the potential load on the Data service by logging new votes into a queue that can be addressed one at a time.  This image shows the full application architecture with all the optional elements deployed.
+
+![Full MyHero Application Architecture](diagrams/myhero-arch-full-v1.png)
+
 ### Install
 
 Run `./myhero-install-queue.sh` to deploy the standard three services (data, app, web) along with an MQTT Server (based on Mosca) and a vote processing service (ernst) to your Mantl cluster.
