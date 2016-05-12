@@ -2,11 +2,11 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_web:latest",
+            "image": "matteocollina/mosca:latest",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
-                "containerPort": 5000,
+                "containerPort": 1883,
                 "hostPort": 0
             }]
         },
@@ -16,12 +16,9 @@
         "protocol": "TCP",
         "portIndex": 0
     }],
-    "id": "/myhero/web",
-    "instances": 3,
-    "cpus": 0.5,
-    "mem": 32,
-    "env": {
-        "myhero_app_server": "http://myhero-app",
-        "myhero_app_key": "SecureApp"
-    }
+    "id": "/myhero/mosca",
+    "instances": 1,
+    "cpus": 1,
+    "mem": 64,
+    "env": {}
 }

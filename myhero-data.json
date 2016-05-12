@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_data",
+            "image": "hpreston/myhero_data:latest",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{

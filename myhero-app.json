@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_app",
+            "image": "hpreston/myhero_app:latest",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
@@ -17,7 +17,7 @@
         "portIndex": 0
     }],
     "id": "/myhero/app",
-    "instances": 2,
+    "instances": 3,
     "cpus": 0.5,
     "mem": 32,
     "env": {

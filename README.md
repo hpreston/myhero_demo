@@ -9,9 +9,14 @@ The application provides a simple interface for gathering and reporting votes ab
 The application is built in a microservice style wrapping each service in a docker container
  that can be deployed and run in Mantl.  In its initial form the applicaiton has three services.
 
-1.  myhero/data - This service stores all the data about candidates and votes cast.
-2.  myhero/app - This service provides the basic logic layer for accessing and recording votes.
-3.  myhero/web - This is the main user interface for casting votes.
+1. myhero/data - This service stores all the data about candidates and votes cast.
+2. myhero/app - This service provides the basic logic layer for accessing and recording votes.
+3. myhero/web - This is the main user interface for casting votes.
+
+There is an optional deployment mode where votes are processed through an MQTT Server by being published by the myhero/app service, and processed by myhero/ernst service that subscribes to the queue.
+In this mode, these additional services are deployed.
+4. myhero/mosca - MQTT Server based on [Mosca](https://hub.docker.com/r/matteocollina/mosca/)
+5. myhero/ernst - Vote processing services
 
 All of the demo details here make use of the Mantl or Marathon APIs to build and manage applciations.  If you prefer to use the different GUIs to execute the demos, you can use the JSON files to find the details needed to configure manually.
 
@@ -39,7 +44,8 @@ In order to leverage this demonstration, you will need to have a Mantl cluster u
 
 Run `source myhero_setup` to enter and record the address, application domain, username, and password for your Mantl instance as non-persistent Environment Variables.  This means you will need to run this command everytime you open an new terminal session.
 
-## Install
+## Basic Deployment
+### Install
 
 Run `./myhero-install.sh` to deploy all three services (data, app, web) to your Mantl cluster.
 
@@ -47,9 +53,25 @@ After running the install it will take a 2-5 minutes for all three services to f
 
 You should be able to reach the web interface for the application at `http://myhero-web.YOUR-DOMAIN` where `YOUR-DOMAIN` refers to the wildcard domain configured for Traefik.
 
-## Uninstallation
+### Uninstallation
 
 Run `./myhero-uninstall.sh` to remove all three services from Marathon.
+
+## Advanced Optional Deployment Using MQTT Server and Queuing
+**IN DEVELOPMENT - MAY NOT BE READY FOR WIDE USAGE**
+
+### Install
+
+Run `./myhero-install-queue.sh` to deploy the standard three services (data, app, web) along with an MQTT Server (based on Mosca) and a vote processing service (ernst) to your Mantl cluster.
+
+After running the install it will take a 2-5 minutes for all three services to fully deploy and become "healthy".  You can monitor this in the Marathon Web GUI.
+
+You should be able to reach the web interface for the application at `http://myhero-web.YOUR-DOMAIN` where `YOUR-DOMAIN` refers to the wildcard domain configured for Traefik.
+
+### Uninstallation
+
+Run `./myhero-uninstall-queue.sh` to remove all services from Marathon.
+
 
 ## Basic Scaling Demo
 
@@ -91,17 +113,28 @@ A strength of Modern Applications are that you can interact with any of the serv
   * `curl -H "key: SecureApp" -X POST http://myhero-app.$MANTL_DOMAIN/vote/Batman`
 
 ## MyHero Service Code and Containers
-Code for the servers:
+Other services are:
 * Data - [hpreston/myhero_data](https://github.com/hpreston/myhero_data)
 * App - [hpreston/myhero_app](https://github.com/hpreston/myhero_app)
 * Web - [hpreston/myhero_web](https://github.com/hpreston/myhero_web)
+* Ernst - [hpreston/myhero_ernst](https://github.com/hpreston/myhero_ernst)
+  * Optional Service used along with an MQTT server when App is in "queue" mode
 * Spark Bot - [hpreston/myhero_spark](https://github.com/hpreston/myhero_spark)
+  * Optional Service that allows voting through IM/Chat with a Cisco Spark Bot
+* Tropo App - [hpreston/myhero_tropo](https://github.com/hpreston/myhero_tropo)
+  * Optional Service that allows voting through TXT/SMS messaging
+
 
 The docker containers are available at
 * Data - [hpreston/myhero_data](https://hub.docker.com/r/hpreston/myhero_data)
 * App - [hpreston/myhero_app](https://hub.docker.com/r/hpreston/myhero_app)
 * Web - [hpreston/myhero_web](https://hub.docker.com/r/hpreston/myhero_web)
+* Ernst - [hpreston/myhero_ernst](https://hub.docker.com/r/hpreston/myhero_ernst)
+  * Optional Service used along with an MQTT server when App is in "queue" mode
 * Spark Bot - [hpreston/myhero_spark](https://hub.docker.com/r/hpreston/myhero_spark)
+  * Optional Service that allows voting through IM/Chat with a Cisco Spark Bot
+* Tropo App - [hpreston/myhero_tropo](https://hub.docker.com/r/hpreston/myhero_tropo)
+  * Optional Service that allows voting through TXT/SMS messaging
 
 
 ## Other Mantl Demo Ideas
