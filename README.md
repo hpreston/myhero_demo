@@ -1,7 +1,7 @@
 
 # MyHero Microservice Demo Application
 
-[Full MyHero Application Architecture](diagrams/myhero-arch-full-v1.png "Arch")
+![Full MyHero Application Architecture](diagrams/myhero-arch-full-v1.png "Arch")
 
 This is provided as a very simple application that can be used to demonstrate
 [Cisco Mantl](http://mantl.io).
