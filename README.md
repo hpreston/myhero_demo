@@ -37,6 +37,8 @@ So with this in mind, MyHero offers some optional additional services for a full
 ## Cisco Spark Bot
 Realtime Chat is becoming very popular with consumer as well as professional world.  Cisco Spark is an enterprise collaboration platform offering text, voice, and video options for group and one on one communciations.  MyHero now can leverage Cisco Spark to allow users to Chat with a Spark Bot to learn about the voting service, find out current results, and cast votes.
 
+![MyHero SparkBot][diagrams/sparkbot-i1.png]
+
 To setup the Spark Bot visit [Spark Bot Setup](./spark_setup.md)
 
 ## Prerequisites
