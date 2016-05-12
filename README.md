@@ -17,8 +17,9 @@ The application is built in a microservice style wrapping each service in a dock
 
 There is an optional deployment mode where votes are processed through an MQTT Server by being published by the myhero/app service, and processed by myhero/ernst service that subscribes to the queue.
 In this mode, these additional services are deployed.
-1. myhero/mosca - MQTT Server based on [Mosca](https://hub.docker.com/r/matteocollina/mosca/)
-2. myhero/ernst - Vote processing services
+
+4. myhero/mosca - MQTT Server based on [Mosca](https://hub.docker.com/r/matteocollina/mosca/)
+5. myhero/ernst - Vote processing services
 
 All of the demo details here make use of the Mantl or Marathon APIs to build and manage applciations.  If you prefer to use the different GUIs to execute the demos, you can use the JSON files to find the details needed to configure manually.
 
