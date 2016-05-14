@@ -10,15 +10,15 @@ The application provides a simple interface for gathering and reporting votes ab
 The application is built in a microservice style wrapping each service in a docker container
  that can be deployed and run in Mantl.  In its initial form the applicaiton has three services.
 
-1. myhero/data - This service stores all the data about candidates and votes cast.
-2. myhero/app - This service provides the basic logic layer for accessing and recording votes.
-3. myhero/web - This is the main user interface for casting votes.
+1. [myhero/data](https://github.com/hpreston/myhero_data) - This service stores all the data about candidates and votes cast.
+2. [myhero/app](https://github.com/hpreston/myhero_app) - This service provides the basic logic layer for accessing and recording votes.
+3. [myhero/web](https://github.com/hpreston/myhero_web) - This is the main user interface for casting votes.
 
 There is an optional deployment mode where votes are processed through an MQTT Server by being published by the myhero/app service, and processed by myhero/ernst service that subscribes to the queue.
 In this mode, these additional services are deployed.
 
 4. myhero/mosca - MQTT Server based on [Mosca](https://hub.docker.com/r/matteocollina/mosca/)
-5. myhero/ernst - Vote processing services
+5. [myhero/ernst](https://github.com/hpreston/myhero_ernst) - Vote processing services
 
 ![MyHero Queueing Arch](diagrams/myhero-queue-arch.png)
 
