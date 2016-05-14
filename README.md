@@ -3,8 +3,7 @@
 
 ![MyHero Demo Application](diagrams/myhero-demo-i1.png)
 
-This is provided as a very simple application that can be used to demonstrate
-[Cisco Mantl](http://mantl.io).
+This is provided as a very simple application that can be used to demonstrate the concepts behind a cloud native application that can be deployed onto [Cisco Mantl](http://mantl.io).  Though designed with Mantl in mind, there is nothing specific to the application and underlying services that require Mantl to function.  Any platform for deploying container based microservices should be acceptable.
 
 The application provides a simple interface for gathering and reporting votes about the best movie superheros.
 
