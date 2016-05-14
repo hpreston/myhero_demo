@@ -7,9 +7,12 @@ echo
 echo "What is your Tropo Account Password: "
 read tropo_pass
 echo
+echo "Here are some possible prefix options to use. "
+echo "  (wait up to 5 seconds for list)"
+python tropo_utils.py listprefixes 10
+echo " "
 echo "What is your the phone number prefix you want for the Tropo Number: "
 echo "Include country code and area code, no spaces, no +."
-echo "Example: 1419"
 read tropo_prefix
 echo
 

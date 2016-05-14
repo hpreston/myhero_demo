@@ -3,23 +3,24 @@
 
 ![MyHero Demo Application](diagrams/myhero-demo-i1.png)
 
-This is provided as a very simple application that can be used to demonstrate
-[Cisco Mantl](http://mantl.io).
+This is provided as a very simple application that can be used to demonstrate the concepts behind a cloud native application that can be deployed onto [Cisco Mantl](http://mantl.io).  Though designed with Mantl in mind, there is nothing specific to the application and underlying services that require Mantl to function.  Any platform for deploying container based microservices should be acceptable.
 
 The application provides a simple interface for gathering and reporting votes about the best movie superheros.
 
 The application is built in a microservice style wrapping each service in a docker container
  that can be deployed and run in Mantl.  In its initial form the applicaiton has three services.
 
-1. myhero/data - This service stores all the data about candidates and votes cast.
-2. myhero/app - This service provides the basic logic layer for accessing and recording votes.
-3. myhero/web - This is the main user interface for casting votes.
+1. [myhero/data](https://github.com/hpreston/myhero_data) - This service stores all the data about candidates and votes cast.
+2. [myhero/app](https://github.com/hpreston/myhero_app) - This service provides the basic logic layer for accessing and recording votes.
+3. [myhero/web](https://github.com/hpreston/myhero_web) - This is the main user interface for casting votes.
 
 There is an optional deployment mode where votes are processed through an MQTT Server by being published by the myhero/app service, and processed by myhero/ernst service that subscribes to the queue.
 In this mode, these additional services are deployed.
 
 4. myhero/mosca - MQTT Server based on [Mosca](https://hub.docker.com/r/matteocollina/mosca/)
-5. myhero/ernst - Vote processing services
+5. [myhero/ernst](https://github.com/hpreston/myhero_ernst) - Vote processing services
+
+![MyHero Queueing Arch](diagrams/myhero-queue-arch.png)
 
 All of the demo details here make use of the Mantl or Marathon APIs to build and manage applciations.  If you prefer to use the different GUIs to execute the demos, you can use the JSON files to find the details needed to configure manually.
 
@@ -41,16 +42,23 @@ Realtime Chat is becoming very popular with consumer as well as professional wor
 
 To setup the Spark Bot visit [Spark Bot Setup](./spark_setup.md)
 
-## Prerequisites
+## Cisco Tropo Service
+Mobile phones are everywhere, and SMS/TXT continues to be a method for interacting with services.  Cisco Tropo is a SaaS solution that provides Voice and SMS services that can be integrated to any applciation through a very easy to use API.  MyHero has an optional Tropo service that allows users to send SMS messages to the MyHero applciation to learn abou the voting service, find out current results, and cast votes.
+
+![MyHero Tropo Service](diagrams/troposervice-i1.png)
+
+To setup the Tropo Service visit [Tropo Service Setup](./tropo_setup.md)
+
+# Prerequisites
 
 In order to leverage this demonstration, you will need to have a Mantl cluster up and functional already.  For help with this visit the Docs site available at [http://mantl.io](http://mantl.io).  You will need to have the address for the control nodes and a username and password for an active account.
 
-## Setup
+# Setup
 
 Run `source myhero_setup` to enter and record the address, application domain, username, and password for your Mantl instance as non-persistent Environment Variables.  This means you will need to run this command everytime you open an new terminal session.
 
-## Basic Deployment
-### Install
+# Basic Deployment
+## Install
 
 Run `./myhero-install.sh` to deploy all three services (data, app, web) to your Mantl cluster.
 
@@ -58,17 +66,17 @@ After running the install it will take a 2-5 minutes for all three services to f
 
 You should be able to reach the web interface for the application at `http://myhero-web.YOUR-DOMAIN` where `YOUR-DOMAIN` refers to the wildcard domain configured for Traefik.
 
-### Uninstallation
+## Uninstallation
 
 Run `./myhero-uninstall.sh` to remove all three services from Marathon.
 
-## Advanced Optional Deployment Using MQTT Server and Queuing
+# Advanced Optional Deployment Using MQTT Server and Queuing
 
 If you'd like to work with an application leveraging more services and components, there is an optional mode deployment that adds a MQTT server to the vote processing functions.  This will reduce the potential load on the Data service by logging new votes into a queue that can be addressed one at a time.  This image shows the full application architecture with all the optional elements deployed.
 
 ![Full MyHero Application Architecture](diagrams/myhero-arch-full-v1.png)
 
-### Install
+## Install
 
 Run `./myhero-install-queue.sh` to deploy the standard three services (data, app, web) along with an MQTT Server (based on Mosca) and a vote processing service (ernst) to your Mantl cluster.
 
@@ -76,20 +84,20 @@ After running the install it will take a 2-5 minutes for all three services to f
 
 You should be able to reach the web interface for the application at `http://myhero-web.YOUR-DOMAIN` where `YOUR-DOMAIN` refers to the wildcard domain configured for Traefik.
 
-### Uninstallation
+## Uninstallation
 
 Run `./myhero-uninstall-queue.sh` to remove all services from Marathon.
 
 
-## Basic Scaling Demo
+# Basic Scaling Demo
 
 A script is included to show how you can easily scale services with Mantl.
 
 Run `./myhero-scaleweb.sh` to have options to change the number of web and app instances deployed.  You can scale up or down with this script.
 
-## Advanced Demos
+# Advanced Demos
 
-### Installation
+## Installation
 If you would rather demo deploying each service independently you can use these sample curl commands.  These commands assume that you've run `source myhero_setup` to store environment variables for key details.
 
 * Deploy the data service
@@ -101,15 +109,15 @@ If you would rather demo deploying each service independently you can use these 
   * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-web.json | python -m json.tool`
   * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
 
-### Scaling a Service
+## Scaling a Service
 * To scale up the web service
   * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web -H "Content-type: application/json" -d '{"instances":5}' | python -m json.tool`
 
-### Getting Details on a Service
+## Getting Details on a Service
 * To get the details on one of the services
   * `curl -k -X GET -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web -H "Content-type: application/json" | python -m json.tool`
 
-### Interfacing with the App Tier API
+## Interfacing with the App Tier API
 
 A strength of Modern Applications are that you can interact with any of the services directly through APIs if the native interface isn't desireable.  Here are some examples interacting with the app service directly.
 
@@ -120,7 +128,7 @@ A strength of Modern Applications are that you can interact with any of the serv
 * Place a vote for a hero
   * `curl -H "key: SecureApp" -X POST http://myhero-app.$MANTL_DOMAIN/vote/Batman`
 
-## MyHero Service Code and Containers
+# MyHero Service Code and Containers
 Other services are:
 * Data - [hpreston/myhero_data](https://github.com/hpreston/myhero_data)
 * App - [hpreston/myhero_app](https://github.com/hpreston/myhero_app)
@@ -145,11 +153,11 @@ The docker containers are available at
   * Optional Service that allows voting through TXT/SMS messaging
 
 
-## Other Mantl Demo Ideas
+# Other Mantl Demo Ideas
 
 Here are some other ideas for demo's to run with Mantl.  Several of these leverage example content delivered with the Mantl code in the examples/ directory.  Others deploy Mesos frameworks using the Mantl API.
 
-### From examples/directory
+## From examples/directory
 
 Run all these from the root directory of Mantl.  They do leverage the environment variables so be sure to run `source myhero_setup` before running these demos.
 
@@ -163,7 +171,7 @@ Run all these from the root directory of Mantl.  They do leverage the environmen
   * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/minecraft/minecraft.json'`
   * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/minecraft -H "Content-type: application/json" `
 
-### DCOS Frameworks
+## DCOS Frameworks
 
 These can be run from anywhere but do leverage the environment variables so be sure to run `source myhero_setup` before running these demos.
 
