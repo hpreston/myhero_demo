@@ -2,6 +2,9 @@
 
 [Back to MyHero Demo Setup](./README.md)
 
+![MyHero SparkBot](diagrams/sparkbot-i1.png)
+
+
 ## Prerequisites
 
 In order to leverage this demonstration, should have already installed the base MyHero Demo app and have the Data and App Services up and Operational.
