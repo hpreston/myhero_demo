@@ -21,6 +21,8 @@ In this mode, these additional services are deployed.
 4. myhero/mosca - MQTT Server based on [Mosca](https://hub.docker.com/r/matteocollina/mosca/)
 5. myhero/ernst - Vote processing services
 
+![MyHero Queueing Arch](diagrams/myhero-queue-arch.png)
+
 All of the demo details here make use of the Mantl or Marathon APIs to build and manage applciations.  If you prefer to use the different GUIs to execute the demos, you can use the JSON files to find the details needed to configure manually.
 
 # Optional Additional Services
