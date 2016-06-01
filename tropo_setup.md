@@ -8,6 +8,8 @@
 
 In order to leverage this demonstration, should have already installed the base MyHero Demo app and have the Data and App Services up and Operational.
 
+**NOTE: To leverage the Tropo Service, your Mantl Cluster MUST be configured for deployed applications to be accessible from the public Internet.  This is because it relies on the Tropo Cloud to be able to send a REST call to the myhero_tropo application you run in Mantl***
+
 ## Cisco Tropo Account Requirement
 In order to use this service, you will need a Cisco Tropo Account deploy the service.
 
