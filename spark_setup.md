@@ -9,6 +9,8 @@
 
 In order to leverage this demonstration, should have already installed the base MyHero Demo app and have the Data and App Services up and Operational.
 
+**NOTE: To leverage the Spark Bot Service, your Mantl Cluster MUST be configured for deployed applications to be accessible from the public Internet.  This is because it relies on the Spark Cloud to be able to send a WebHook to the myhero_spark application you run in Mantl***
+
 ## Spark Developer Account Requirement
 In order to use this service, you will need a Cisco Spark Account to use for the bot.  You can leverage your personal Spark Account or create a new one to be used by the service.  I recommend creating a new one to make testing easier (i.e. if you use your own it will be hard to chat with yourself).
 

@@ -6,6 +6,11 @@ read tropo_user
 echo
 echo "What is your Tropo Account Password: "
 read tropo_pass
+
+export TROPO_USER="$tropo_user"
+export TROPO_PASS="$tropo_pass"
+
+
 echo
 echo "Here are some possible prefix options to use. "
 echo "  (wait up to 5 seconds for list)"
@@ -17,8 +22,6 @@ read tropo_prefix
 echo
 
 
-export TROPO_USER="$tropo_user"
-export TROPO_PASS="$tropo_pass"
 export TROPO_PREFIX="$tropo_prefix"
 
 echo "Tropo Application 'myherodemo' will be setup if doesn't exist. "

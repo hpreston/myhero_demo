@@ -42,12 +42,16 @@ Realtime Chat is becoming very popular with consumer as well as professional wor
 
 To setup the Spark Bot visit [Spark Bot Setup](./spark_setup.md)
 
+**NOTE: To leverage the Spark Bot Service, your Mantl Cluster MUST be configured for deployed applications to be accessible from the public Internet.  This is because it relies on the Spark Cloud to be able to send a WebHook to the myhero_spark application you run in Mantl***
+
 ## Cisco Tropo Service
 Mobile phones are everywhere, and SMS/TXT continues to be a method for interacting with services.  Cisco Tropo is a SaaS solution that provides Voice and SMS services that can be integrated to any applciation through a very easy to use API.  MyHero has an optional Tropo service that allows users to send SMS messages to the MyHero applciation to learn abou the voting service, find out current results, and cast votes.
 
 ![MyHero Tropo Service](diagrams/troposervice-i1.png)
 
 To setup the Tropo Service visit [Tropo Service Setup](./tropo_setup.md)
+
+**NOTE: To leverage the Tropo Service, your Mantl Cluster MUST be configured for deployed applications to be accessible from the public Internet.  This is because it relies on the Tropo Cloud to be able to send a REST call to the myhero_tropo application you run in Mantl***
 
 # Prerequisites
 
