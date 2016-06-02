@@ -4,6 +4,46 @@
 [ -z "$MANTL_USER" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 [ -z "$MANTL_PASSWORD" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 [ -z "$MANTL_DOMAIN" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
+[ -z "$DEPLOYMENT_NAME" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
+
+echo " "
+echo "***************************************************"
+echo Checking if MyHero has already been deployed with deployment name \"$DEPLOYMENT_NAME\"
+python mantl_utils.py applicationexists $DEPLOYMENT_NAME/web
+if [ $? -eq 1 ]
+then
+    echo "    Deployment name available, continuing."
+else
+    echo "    Deployment name already used."
+    echo "    Rerun 'source myhero_setup' and choose a new deployment name."
+    exit 1
+fi
+
+# Create Copy of JSON Definitions for Deployment
+echo "Creating Service Definitions "
+
+cp sample-myhero-app.json $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/#\"myhero_mqtt_server"/\"myhero_mqtt_server"/g" $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/#\"myhero_app_mode"/\"myhero_app_mode"/g" $DEPLOYMENT_NAME-app.json
+
+cp sample-myhero-data.json $DEPLOYMENT_NAME-data.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-data.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-data.json
+
+cp sample-myhero-web.json $DEPLOYMENT_NAME-web.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-web.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-web.json
+
+cp sample-myhero-ernst.json $DEPLOYMENT_NAME-ernst.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-ernst.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-ernst.json
+
+cp sample-myhero-mosca.json $DEPLOYMENT_NAME-mosca.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-mosca.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-mosca.json
+
 
 echo " "
 echo "***************************************************"
@@ -11,7 +51,7 @@ echo Deploying Data Service
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
 -H "Content-type: application/json" \
--d @myhero-data.json \
+-d @$DEPLOYMENT_NAME-data.json \
 | python -m json.tool
 echo "***************************************************"
 echo
@@ -20,7 +60,7 @@ echo Deploying Mosca
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
 -H "Content-type: application/json" \
--d @myhero-mosca.json \
+-d @$DEPLOYMENT_NAME-mosca.json \
 | python -m json.tool
 echo "***************************************************"
 echo
@@ -29,12 +69,7 @@ echo Deploying Ernst Service
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
 -H "Content-type: application/json" \
--d @myhero-ernst.json \
-| python -m json.tool
-echo "Updating Ernst Service Environment Variables"
-curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/ernst?force=true \
--H "Content-type: application/json" \
--d "{\"env\": {\"myhero_data_server\": \"http://myhero-data.$MANTL_DOMAIN\", \"myhero_data_key\": \"SecureData\", \"myhero_mqtt_server\": \"mosca-myhero.service.consul\"}}" \
+-d @$DEPLOYMENT_NAME-ernst.json \
 | python -m json.tool
 echo "***************************************************"
 echo
@@ -44,12 +79,7 @@ echo Deploying Application Service
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
 -H "Content-type: application/json" \
--d @myhero-app.json \
-| python -m json.tool
-echo "Updating App Service Environment Variables"
-curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/app?force=true \
--H "Content-type: application/json" \
--d "{\"env\": {\"myhero_data_server\": \"http://myhero-data.$MANTL_DOMAIN\", \"myhero_data_key\": \"SecureData\", \"myhero_app_key\": \"SecureApp\", \"myhero_mqtt_server\": \"mosca-myhero.service.consul\", \"myhero_app_mode\": \"queue\"}}" \
+-d @$DEPLOYMENT_NAME-app.json \
 | python -m json.tool
 echo "***************************************************"
 echo
@@ -58,12 +88,7 @@ echo Deploying Web Service
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
 -H "Content-type: application/json" \
--d @myhero-web.json \
-| python -m json.tool
-echo "Updating Web Service Environment Variables"
-curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web?force=true \
--H "Content-type: application/json" \
--d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\", \"myhero_app_key\": \"SecureApp\"}}" \
+-d @$DEPLOYMENT_NAME-web.json \
 | python -m json.tool
 echo "***************************************************"
 echo
@@ -73,7 +98,7 @@ echo " "
 echo "Wait 5-10 minutes for the service to deploy "
 echo "and then open the following page in your browser to view the application."
 echo " "
-echo "    http://myhero-web.$MANTL_DOMAIN "
+echo "    http://$DEPLOYMENT_NAME-web.$MANTL_DOMAIN "
 echo " "
 echo " "
 

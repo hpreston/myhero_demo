@@ -1,0 +1,22 @@
+{
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "hpreston/myhero_ernst:latest",
+            "forcePullImage": true,
+            "network": "BRIDGE",
+            "portMappings": []
+        },
+        "forcePullImage": true
+    },
+    "healthChecks": [],
+    "id": "/DEPLOYMENTNAME/ernst",
+    "instances": 1,
+    "cpus": 1,
+    "mem": 64,
+    "env": {
+        "myhero_data_server": "http://DEPLOYMENTNAME-data.MANTLDOMAIN",
+        "myhero_data_key": "SecureData",
+        "myhero_mqtt_server": "mosca-DEPLOYMENTNAME.service.consul"
+    }
+}

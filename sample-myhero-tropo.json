@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_spark:latest",
+            "image": "hpreston/myhero_tropo:latest",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
@@ -16,16 +16,17 @@
         "protocol": "TCP",
         "portIndex": 0
     }],
-    "id": "/myhero/spark",
+    "id": "/DEPLOYMENTNAME/tropo",
     "instances": 1,
     "cpus": 0.5,
     "mem": 32,
     "env": {
-        "myhero_app_server": "http://myhero-app.mantl.browndogtech.com",
+        "myhero_app_server": "http://DEPLOYMENTNAME-app.MANTLDOMAIN",
         "myhero_app_key": "SecureApp",
-        "myhero_spark_bot_email": "myhero.demo@reqdemo.com",
-        "spark_token": "ZTgzYTRjMTItZGY3NS00YjVhLWFjNzAtODdiODUxZTJlODdiZDQyYzljZGEtNGQ0",
-        "myhero_spark_bot_url": "http://myhero-spark.mantl.browndogtech.com",
-        "myhero_spark_bot_secret": "SecureBot"
+        "myhero_tropo_secret": "SecureTropo",
+        "myhero_tropo_user":"TROPOUSER",
+        "myhero_tropo_pass":"TROPOPASS",
+        "myhero_tropo_prefix":"TROPOPREFIX",
+        "myhero_tropo_url":"http://DEPLOYMENTNAME-tropo.MANTLDOMAIN"
     }
 }

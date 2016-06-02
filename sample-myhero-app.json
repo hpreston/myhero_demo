@@ -1,0 +1,30 @@
+{
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "hpreston/myhero_app:latest",
+            "forcePullImage": true,
+            "network": "BRIDGE",
+            "portMappings": [{
+                "containerPort": 5000,
+                "hostPort": 0
+            }]
+        },
+        "forcePullImage": true
+    },
+    "healthChecks": [{
+        "protocol": "TCP",
+        "portIndex": 0
+    }],
+    "id": "/DEPLOYMENTNAME/app",
+    "instances": 3,
+    "cpus": 0.5,
+    "mem": 32,
+    "env": {
+        #"myhero_mqtt_server": "mosca-DEPLOYMENTNAME.service.consul",
+        #"myhero_app_mode": "queue",
+        "myhero_data_server": "http://DEPLOYMENTNAME-data.MANTLDOMAIN",
+        "myhero_data_key": "SecureData",
+        "myhero_app_key": "SecureApp"
+    }
+}

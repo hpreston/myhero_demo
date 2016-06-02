@@ -23,6 +23,14 @@ export MANTL_USER="$mantl_user"
 export MANTL_PASSWORD="$mantl_password"
 export MANTL_DOMAIN="$mantl_domain"
 
+echo
+echo "What do you want your deployment to be named?  "
+echo "For example, with a name of \"myhero\", you will visit http://myhero-web.$MANTL_DOMAIN to view the application"
+read deployment_name
+echo
+
+export DEPLOYMENT_NAME="$deployment_name"
+
 echo "Marathon API calls will be sent to: "
 echo "https://$MANTL_CONTROL:8080/"
 
