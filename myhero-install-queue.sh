@@ -25,8 +25,7 @@ echo "Creating Service Definitions "
 cp sample-myhero-app.json $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-app.json
-sed -i "" -e "s/#\"myhero_mqtt_server"/\"myhero_mqtt_server"/g" $DEPLOYMENT_NAME-app.json
-sed -i "" -e "s/#\"myhero_app_mode"/\"myhero_app_mode"/g" $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/direct/queue/g" $DEPLOYMENT_NAME-app.json
 
 cp sample-myhero-data.json $DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-data.json
