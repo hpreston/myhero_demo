@@ -4,12 +4,8 @@ Simple Python Utilities to check details from Mantl for deploying apps.
 
 Supported Tasks:
 # TODO UPDATE THIS LIST
-  ./tropo_utils.py numbercheck <prefix>
-    - See if there are available numbers for a given prefix
-  ./tropo_utils.py applicationcheck <application name>
-    - See if there is already a created application of a given name
-  ./tropo_utils.py listprefixes <count>
-    - Return a list of supported prefixes
+  ./mantl_utils.py applicationexists <appname>
+    - See if a given applciation already exists in marathon
 '''
 
 
@@ -42,16 +38,8 @@ def get_marathon_application(appname):
 # Utility Functions
 def chelp():
     print("Supported Commands are:")
-    print("\tnumbercheck <prefix>")
-    print("\tapplicationcheck <application name>")
-    print("\tlistprefixes <count>")
+    print("\tapplicationexists <application name>")
 
-def create_urlopener(host, user, password):
-    authinfo = urllib2.HTTPPasswordMgrWithDefaultRealm()
-    authinfo.add_password(None, host, user, password)
-    handler = urllib2.HTTPBasicAuthHandler(authinfo)
-    myopener = urllib2.build_opener(handler)
-    opened = urllib2.install_opener(myopener)
 
 ctx = ssl.create_default_context()
 ctx.check_hostname = False
