@@ -21,11 +21,11 @@
     "cpus": 0.5,
     "mem": 32,
     "env": {
-        "myhero_app_server": "http://myhero-app.mantl.browndogtech.com",
+        "myhero_app_server": "http://myhero-app",
         "myhero_app_key": "SecureApp",
-        "myhero_spark_bot_email": "myhero.demo@reqdemo.com",
-        "spark_token": "ZTgzYTRjMTItZGY3NS00YjVhLWFjNzAtODdiODUxZTJlODdiZDQyYzljZGEtNGQ0",
-        "myhero_spark_bot_url": "http://myhero-spark.mantl.browndogtech.com",
+        "myhero_spark_bot_email": "SPARKEMAIL",
+        "spark_token": "SPARKTOKEN",
+        "myhero_spark_bot_url": "http://myhero-spark",
         "myhero_spark_bot_secret": "SecureBot"
     }
 }
