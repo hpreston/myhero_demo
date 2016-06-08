@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_tropo:latest",
+            "image": "hpreston/myhero_web:latest",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
@@ -16,17 +16,12 @@
         "protocol": "TCP",
         "portIndex": 0
     }],
-    "id": "/myhero/tropo",
-    "instances": 1,
+    "id": "/DEPLOYMENTNAME/web",
+    "instances": 3,
     "cpus": 0.5,
     "mem": 32,
     "env": {
-        "myhero_app_server": "http://myhero-app",
-        "myhero_app_key": "SecureApp",
-        "myhero_tropo_secret": "SecureTropo",
-        "myhero_tropo_user":"tropouser",
-        "myhero_tropo_pass":"tropopass",
-        "myhero_tropo_prefix":"tropoprefix",
-        "myhero_tropo_url":"http://myhero-tropo"
+        "myhero_app_server": "http://DEPLOYMENTNAME-app.MANTLDOMAIN",
+        "myhero_app_key": "SecureApp"
     }
 }

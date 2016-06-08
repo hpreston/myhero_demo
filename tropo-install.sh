@@ -4,6 +4,7 @@
 [ -z "$MANTL_USER" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 [ -z "$MANTL_PASSWORD" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 [ -z "$MANTL_DOMAIN" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
+[ -z "$DEPLOYMENT_NAME" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 
 [ -z "$TROPO_USER" ] && echo "Please run 'source tropo_setup' to set Environment Variables" && exit 1;
 [ -z "$TROPO_PASS" ] && echo "Please run 'source tropo_setup' to set Environment Variables" && exit 1;
@@ -26,6 +27,16 @@ else
     echo "    Application Prefix is Valid"
 fi
 
+# Create Copy of JSON Definitions for Deployment
+echo "Creating Service Definifition "
+
+cp sample-myhero-tropo.json $DEPLOYMENT_NAME-tropo.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-tropo.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-tropo.json
+sed -i "" -e "s/TROPOUSER/$TROPO_USER/g" $DEPLOYMENT_NAME-tropo.json
+sed -i "" -e "s/TROPOPASS/$TROPO_PASS/g" $DEPLOYMENT_NAME-tropo.json
+sed -i "" -e "s/TROPOPREFIX/$TROPO_PREFIX/g" $DEPLOYMENT_NAME-tropo.json
+
 echo Checking if Tropo Application Called "myherodemo" exists already.
 python tropo_utils.py applicationcheck myherodemo
 
@@ -42,18 +53,8 @@ echo " "
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
 -H "Content-type: application/json" \
--d @myhero-tropo.json \
+-d @$DEPLOYMENT_NAME-tropo.json \
 | python -m json.tool
-
-echo "***************************************************"
-echo "Updating Service Environment Variables"
-curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/tropo?force=true \
--H "Content-type: application/json" \
--d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\", \"myhero_app_key\": \"SecureApp\", \"myhero_tropo_secret\": \"SecureTropo\", \"myhero_tropo_user\":\"$TROPO_USER\", \"myhero_tropo_pass\":\"$TROPO_PASS\", \"myhero_tropo_prefix\":\"$TROPO_PREFIX\", \"myhero_tropo_url\":\"http://myhero-tropo.$MANTL_DOMAIN\"}}" \
-| python -m json.tool
-
-echo "***************************************************"
-echo
 
 
 echo Deployed
@@ -61,7 +62,7 @@ echo " "
 echo "Wait 5-10 minutes for the service to deploy "
 echo "and then run the following command to find your number."
 echo " "
-echo "    curl -H \"key: SecureTropo\" http://myhero-tropo.$MANTL_DOMAIN/application/number"
+echo "    curl -H \"key: SecureTropo\" http://$DEPLOYMENT_NAME-tropo.$MANTL_DOMAIN/application/number"
 echo " "
 echo " "
 
