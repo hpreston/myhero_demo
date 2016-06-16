@@ -10,7 +10,7 @@ read mantl_user
 echo
 echo
 echo "What is the password for your Mantl account?  "
-read mantl_password
+read -s mantl_password
 echo
 echo
 echo "What is the Traefik domain for your deployed apps?  "
