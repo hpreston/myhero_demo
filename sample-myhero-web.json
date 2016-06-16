@@ -18,8 +18,8 @@
     }],
     "id": "/DEPLOYMENTNAME/web",
     "instances": 3,
-    "cpus": 0.5,
-    "mem": 32,
+    "cpus": 0.1,
+    "mem": 64,
     "env": {
         "myhero_app_server": "http://DEPLOYMENTNAME-app.MANTLDOMAIN",
         "myhero_app_key": "SecureApp"
