@@ -18,7 +18,7 @@
     }],
     "id": "/DEPLOYMENTNAME/spark",
     "instances": 1,
-    "cpus": 0.5,
+    "cpus": 0.15,
     "mem": 32,
     "env": {
         "myhero_app_server": "http://DEPLOYMENTNAME-app.MANTLDOMAIN",

@@ -18,8 +18,8 @@
     }],
     "id": "/DEPLOYMENTNAME/app",
     "instances": 3,
-    "cpus": 0.5,
-    "mem": 32,
+    "cpus": 0.1,
+    "mem": 64,
     "env": {
         "myhero_mqtt_server": "mosca-DEPLOYMENTNAME.service.consul",
         "myhero_app_mode": "direct",
