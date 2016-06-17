@@ -5,7 +5,8 @@ echo "What is your Tropo Account Username: "
 read tropo_user
 echo
 echo "What is your Tropo Account Password: "
-read tropo_pass
+echo "  * Input hidden"
+read -s tropo_pass
 
 export TROPO_USER="$tropo_user"
 export TROPO_PASS="$tropo_pass"

@@ -5,7 +5,8 @@ echo "What is your Cisco Spark Email Address: "
 read spark_email
 echo
 echo "What is your Cisco Spark Developer Token: "
-read spark_token
+echo "  * Input hidden"
+read -s spark_token
 echo
 
 
