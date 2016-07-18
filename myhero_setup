@@ -10,7 +10,6 @@ read mantl_user
 echo
 echo
 echo "What is the password for your Mantl account?  "
-echo "  * Input hidden"
 read -s mantl_password
 echo
 echo
