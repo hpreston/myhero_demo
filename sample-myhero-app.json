@@ -23,7 +23,7 @@
     "env": {
         "myhero_mqtt_server": "mosca-DEPLOYMENTNAME.service.consul",
         "myhero_app_mode": "direct",
-        "myhero_data_server": "http://DEPLOYMENTNAME-data.MANTLDOMAIN",
+        "myhero_data_srv": "data-DEPLOYMENTNAME.service.consul",
         "myhero_data_key": "SecureData",
         "myhero_app_key": "SecureApp"
     }

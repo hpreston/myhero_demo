@@ -15,8 +15,12 @@
     "cpus": 1,
     "mem": 64,
     "env": {
-        "myhero_data_server": "http://DEPLOYMENTNAME-data.MANTLDOMAIN",
+        "myhero_data_srv": "data-DEPLOYMENTNAME.service.consul",
         "myhero_data_key": "SecureData",
         "myhero_mqtt_server": "mosca-DEPLOYMENTNAME.service.consul"
+    },
+    "labels": {
+        "traefik.enable": "false"
     }
+
 }

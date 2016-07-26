@@ -22,5 +22,8 @@
     "mem": 64,
     "env": {
         "myhero_data_key": "SecureData"
+    },
+    "labels": {
+        "traefik.enable": "false"
     }
 }
