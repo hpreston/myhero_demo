@@ -22,6 +22,7 @@ export MANTL_CONTROL="$control_address"
 export MANTL_USER="$mantl_user"
 export MANTL_PASSWORD="$mantl_password"
 export MANTL_DOMAIN="$mantl_domain"
+export TAG="latest"
 
 echo
 echo "What do you want your deployment to be named?  "

@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_app:latest",
+            "image": "hpreston/myhero_app:TAG",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
@@ -17,8 +17,8 @@
         "portIndex": 0
     }],
     "id": "/DEPLOYMENTNAME/app",
-    "instances": 3,
-    "cpus": 0.2,
+    "instances": 1,
+    "cpus": 0.1,
     "mem": 64,
     "env": {
         "myhero_mqtt_server": "mosca-DEPLOYMENTNAME.service.consul",

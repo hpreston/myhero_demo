@@ -2,11 +2,11 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_web:TAG",
+            "image": "hpreston/myhero_ui:TAG",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
-                "containerPort": 5000,
+                "containerPort": 80,
                 "hostPort": 0
             }]
         },
@@ -16,9 +16,9 @@
         "protocol": "TCP",
         "portIndex": 0
     }],
-    "id": "/DEPLOYMENTNAME/web",
+    "id": "/DEPLOYMENTNAME/ui",
     "instances": 1,
-    "cpus": 0.1,
+    "cpus": 0.2,
     "mem": 64,
     "env": {
         "myhero_app_server": "http://DEPLOYMENTNAME-app.MANTLDOMAIN",

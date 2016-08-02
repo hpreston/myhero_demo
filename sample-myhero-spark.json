@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_spark:latest",
+            "image": "hpreston/myhero_spark:TAG",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{
