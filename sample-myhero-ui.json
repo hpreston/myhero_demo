@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_ui:gsx",
+            "image": "hpreston/myhero_ui:TAG",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{

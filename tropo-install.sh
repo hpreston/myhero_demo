@@ -36,6 +36,7 @@ sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-tropo.json
 sed -i "" -e "s/TROPOUSER/$TROPO_USER/g" $DEPLOYMENT_NAME-tropo.json
 sed -i "" -e "s/TROPOPASS/$TROPO_PASS/g" $DEPLOYMENT_NAME-tropo.json
 sed -i "" -e "s/TROPOPREFIX/$TROPO_PREFIX/g" $DEPLOYMENT_NAME-tropo.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-tropo.json
 
 echo Checking if Tropo Application Called "myherodemo" exists already.
 python tropo_utils.py applicationcheck myherodemo

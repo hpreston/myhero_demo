@@ -25,6 +25,7 @@ echo "Creating Service Definifition "
 cp sample-myhero-ui.json $DEPLOYMENT_NAME-ui.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-ui.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-ui.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-ui.json
 
 
 echo Deploying UI Service

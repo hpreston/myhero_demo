@@ -2,7 +2,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "hpreston/myhero_tropo:latest",
+            "image": "hpreston/myhero_tropo:TAG",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [{

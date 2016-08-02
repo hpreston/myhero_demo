@@ -25,13 +25,17 @@ echo "Creating Service Definifition "
 cp sample-myhero-app.json $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-app.json
+
 
 cp sample-myhero-data.json $DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-data.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-data.json
 
 cp sample-myhero-web.json $DEPLOYMENT_NAME-web.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-web.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-web.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-web.json
 
 
 echo " "
@@ -45,6 +49,8 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
+sleep 7
+
 echo Deploying Application Service
 echo "** Marathon Application Definition ** "
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
@@ -54,6 +60,8 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo
 echo "***************************************************"
 echo
+
+sleep 7
 
 echo Deploying Web Service
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \

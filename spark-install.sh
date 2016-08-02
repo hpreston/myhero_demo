@@ -17,6 +17,7 @@ sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-spark.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-spark.json
 sed -i "" -e "s/SPARKEMAIL/$SPARK_EMAIL/g" $DEPLOYMENT_NAME-spark.json
 sed -i "" -e "s/SPARKTOKEN/$SPARK_TOKEN/g" $DEPLOYMENT_NAME-spark.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-spark.json
 
 
 echo " "

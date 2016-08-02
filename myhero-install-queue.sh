@@ -26,22 +26,27 @@ cp sample-myhero-app.json $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/direct/queue/g" $DEPLOYMENT_NAME-app.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-app.json
 
 cp sample-myhero-data.json $DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-data.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-data.json
 
 cp sample-myhero-web.json $DEPLOYMENT_NAME-web.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-web.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-web.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-web.json
 
 cp sample-myhero-ernst.json $DEPLOYMENT_NAME-ernst.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-ernst.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-ernst.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-ernst.json
 
 cp sample-myhero-mosca.json $DEPLOYMENT_NAME-mosca.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-mosca.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-mosca.json
+sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-mosca.json
 
 
 echo " "
@@ -55,7 +60,7 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
-sleep 2
+sleep 7
 
 echo Deploying Mosca
 echo "** Marathon Application Definition ** "
@@ -66,18 +71,7 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
-sleep 2
-
-echo Deploying Ernst Service
-echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
--H "Content-type: application/json" \
--d @$DEPLOYMENT_NAME-ernst.json \
-| python -m json.tool
-echo "***************************************************"
-echo
-
-sleep 2
+sleep 7
 
 echo Deploying Application Service
 echo "** Marathon Application Definition ** "
@@ -88,7 +82,18 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
-sleep 2
+sleep 7
+
+echo Deploying Ernst Service
+echo "** Marathon Application Definition ** "
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+-H "Content-type: application/json" \
+-d @$DEPLOYMENT_NAME-ernst.json \
+| python -m json.tool
+echo "***************************************************"
+echo
+
+sleep 7
 
 echo Deploying Web Service
 echo "** Marathon Application Definition ** "
