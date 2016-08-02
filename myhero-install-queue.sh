@@ -60,6 +60,7 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
+echo 'Pausing for 10 seconds for processing...'
 sleep 10
 
 echo Deploying Mosca
@@ -71,6 +72,7 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
+echo 'Pausing for 10 seconds for processing...'
 sleep 10
 
 echo Deploying Application Service
@@ -82,7 +84,8 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
-sleep 10
+echo 'Pausing for 15 seconds for processing...'
+sleep 15
 
 echo Deploying Ernst Service
 echo "** Marathon Application Definition ** "
@@ -93,7 +96,8 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "***************************************************"
 echo
 
-sleep 10
+echo 'Pausing for 15 seconds for processing...'
+sleep 15
 
 echo Deploying Web Service
 echo "** Marathon Application Definition ** "
