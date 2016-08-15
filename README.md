@@ -105,21 +105,21 @@ Run `./myhero-scaleweb.sh` to have options to change the number of web and app i
 If you would rather demo deploying each service independently you can use these sample curl commands.  These commands assume that you've run `source myhero_setup` to store environment variables for key details.  This also uses the default of "myhero" as the deployment name.
 
 * Deploy the data service
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-data.json| python -m json.tool`
+  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps -H "Content-type: application/json" -d @myhero-data.json| python -m json.tool`
 * Deploy the app service
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-app.json | python -m json.tool`
-  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/app?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_data_server\": \"http://myhero-data.$MANTL_DOMAIN\", \"myhero_data_key\": \"SecureData\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
+  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps -H "Content-type: application/json" -d @myhero-app.json | python -m json.tool`
+  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/myhero/app?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_data_server\": \"http://myhero-data.$MANTL_DOMAIN\", \"myhero_data_key\": \"SecureData\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
 * Deploy the web service
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-web.json | python -m json.tool`
-  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
+  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps -H "Content-type: application/json" -d @myhero-web.json | python -m json.tool`
+  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/myhero/web?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
 
 ## Scaling a Service
 * To scale up the web service
-  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web -H "Content-type: application/json" -d '{"instances":5}' | python -m json.tool`
+  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/myhero/web -H "Content-type: application/json" -d '{"instances":5}' | python -m json.tool`
 
 ## Getting Details on a Service
 * To get the details on one of the services
-  * `curl -k -X GET -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/DEPLOYMENTNAME/web -H "Content-type: application/json" | python -m json.tool`
+  * `curl -k -X GET -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/DEPLOYMENTNAME/web -H "Content-type: application/json" | python -m json.tool`
 
 ## Interfacing with the App Tier API
 
@@ -166,14 +166,14 @@ Here are some other ideas for demo's to run with Mantl.  Several of these levera
 Run all these from the root directory of Mantl.  They do leverage the environment variables so be sure to run `source myhero_setup` before running these demos.
 
 * Hello-world Example
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/hello-world/hello-world.json'`
-  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/hello-world -H "Content-type: application/json" `
+  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps -H "Content-type: application/json" -d @examples/hello-world/hello-world.json'`
+  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/hello-world -H "Content-type: application/json" `
 * Kong Example
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/kong/kong.json'`
-  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/kong -H "Content-type: application/json" `
+  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps -H "Content-type: application/json" -d @examples/kong/kong.json'`
+  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/kong -H "Content-type: application/json" `
 * Minecraft Example
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/minecraft/minecraft.json'`
-  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/minecraft -H "Content-type: application/json" `
+  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps -H "Content-type: application/json" -d @examples/minecraft/minecraft.json'`
+  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/minecraft -H "Content-type: application/json" `
 
 ## DCOS Frameworks
 

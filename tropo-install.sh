@@ -52,7 +52,7 @@ echo "***************************************************"
 echo Deploying Tropo Service
 echo " "
 echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-tropo.json \
 | python -m json.tool

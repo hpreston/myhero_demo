@@ -51,6 +51,7 @@ try:
     mantl_password = os.environ["MANTL_PASSWORD"]
     mantl_domain = os.environ["MANTL_DOMAIN"]
     deployment_name = os.environ["DEPLOYMENT_NAME"]
+    mara_url     = os.environ["MARATHON_URL"]
     command = sys.argv[1]
     input = sys.argv[2]
 except:
@@ -58,7 +59,7 @@ except:
     chelp()
     sys.exit(1)
 
-marathon_host = "https://%s:8080" % (mantl_control)
+marathon_host = mara_url
 base64string = base64.encodestring('%s:%s' % (mantl_user, mantl_password)).replace('\n', '')
 authheader =  "Basic %s" % base64string
 

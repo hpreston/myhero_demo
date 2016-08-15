@@ -11,7 +11,7 @@
 [ -z "$TROPO_PREFIX" ] && echo "Please run 'source tropo_setup' to set Environment Variables" && exit 1;
 
 echo Removing Tropo Service
-curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENT_NAME/tropo \
+curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/$DEPLOYMENT_NAME/tropo \
 -H "Content-type: application/json"
 echo
 

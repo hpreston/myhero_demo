@@ -29,7 +29,7 @@ sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-ui.json
 
 
 echo Deploying UI Service
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-ui.json \
 | python -m json.tool

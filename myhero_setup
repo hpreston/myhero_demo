@@ -16,6 +16,9 @@ echo
 echo "What is the Traefik domain for your deployed apps?  "
 read mantl_domain
 echo
+echo
+echo "What is the url for Marathon? [default: https://\$MANTL_CONTROL/marathon]  "
+read marathon_url
 
 
 export MANTL_CONTROL="$control_address"
@@ -23,6 +26,7 @@ export MANTL_USER="$mantl_user"
 export MANTL_PASSWORD="$mantl_password"
 export MANTL_DOMAIN="$mantl_domain"
 export TAG="latest"
+export MARATHON_URL="${marathon_url:-https://$MANTL_CONTROL/marathon}"
 
 echo
 echo "What do you want your deployment to be named?  "
@@ -33,5 +37,5 @@ echo
 export DEPLOYMENT_NAME="$deployment_name"
 
 echo "Marathon API calls will be sent to: "
-echo "https://$MANTL_CONTROL:8080/"
+echo "$MARATHON_URL/"
 
