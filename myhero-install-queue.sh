@@ -53,7 +53,7 @@ echo " "
 echo "***************************************************"
 echo Deploying Data Service
 echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-data.json \
 | python -m json.tool
@@ -65,7 +65,7 @@ sleep 10
 
 echo Deploying Mosca
 echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-mosca.json \
 | python -m json.tool
@@ -77,7 +77,7 @@ sleep 10
 
 echo Deploying Application Service
 echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-app.json \
 | python -m json.tool
@@ -89,7 +89,7 @@ sleep 15
 
 echo Deploying Ernst Service
 echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-ernst.json \
 | python -m json.tool
@@ -101,7 +101,7 @@ sleep 15
 
 echo Deploying Web Service
 echo "** Marathon Application Definition ** "
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps \
 -H "Content-type: application/json" \
 -d @$DEPLOYMENT_NAME-web.json \
 | python -m json.tool

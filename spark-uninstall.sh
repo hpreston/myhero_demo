@@ -10,7 +10,7 @@
 [ -z "$SPARK_TOKEN" ] && echo "Please run 'source spark_setup' to set Environment Variables" && exit 1;
 
 echo Removing Spark Service
-curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENT_NAME/spark \
+curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/$DEPLOYMENT_NAME/spark \
 -H "Content-type: application/json"
 echo
 

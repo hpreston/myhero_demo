@@ -7,18 +7,18 @@
 [ -z "$DEPLOYMENT_NAME" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 
 echo Removing Web Service
-curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENT_NAME/web \
+curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/$DEPLOYMENT_NAME/web \
 -H "Content-type: application/json"
 echo
 
 echo Removing App Service
-curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENT_NAME/app \
+curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/$DEPLOYMENT_NAME/app \
 -H "Content-type: application/json"
 echo
 
 
 echo Removing Data Service
-curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENT_NAME/data \
+curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD $MARATHON_URL/v2/apps/$DEPLOYMENT_NAME/data \
 -H "Content-type: application/json"
 echo
 
