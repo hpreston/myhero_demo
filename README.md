@@ -1,7 +1,7 @@
 
 # MyHero Microservice Demo Application
 
-![MyHero Demo Application](diagrams/myhero-demo-i1.png)
+![MyHero Demo Application](diagrams/myhero-demo-i2.png)
 
 This is provided as a very simple application that can be used to demonstrate the concepts behind a cloud native application that can be deployed onto [Cisco Mantl](http://mantl.io).  Though designed with Mantl in mind, there is nothing specific to the application and underlying services that require Mantl to function.  Any platform for deploying container based microservices should be acceptable.
 
@@ -61,139 +61,112 @@ In order to leverage this demonstration, you will need to have a Mantl cluster u
 
 Run `source myhero_setup` to enter and record the deployment name, address, application domain, username, and password for your Mantl instance as non-persistent Environment Variables.  This means you will need to run this command everytime you open an new terminal session.
 
-# Basic Deployment
-## Install
+# Application Deployment
 
-Run `./myhero-install.sh` to deploy all three services (data, app, web) to your Mantl cluster.
-
-After running the install it will take a 2-5 minutes for all three services to fully deploy and become "healthy".  You can monitor this in the Marathon Web GUI.
-
-You should be able to reach the web interface for the application at `http://DEPLOYMENTNAME-web.YOUR-DOMAIN` where `DEPLOYMENTNAME` refers to the deployment name provided at setup and `YOUR-DOMAIN` refers to the wildcard domain configured for Traefik.
-
-## Uninstallation
-
-Run `./myhero-uninstall.sh` to remove all three services from Marathon.
-
-# Advanced Optional Deployment Using MQTT Server and Queuing
-
-If you'd like to work with an application leveraging more services and components, there is an optional mode deployment that adds a MQTT server to the vote processing functions.  This will reduce the potential load on the Data service by logging new votes into a queue that can be addressed one at a time.  This image shows the full application architecture with all the optional elements deployed.
-
-![Full MyHero Application Architecture](diagrams/myhero-arch-full-v1.png)
+![Full MyHero Application Architecture](diagrams/myhero-arch-full-v3.png)
 
 ## Install
 
-Run `./myhero-install-queue.sh` to deploy the standard three services (data, app, web) along with an MQTT Server (based on Mosca) and a vote processing service (ernst) to your Mantl cluster.
+Run `./myhero-install.sh` to deploy the default configuration to your Mantl Cluster.  This includes: 
+
+* myhero_data 
+* myhero_app
+* myhero_ernst
+* myhero_queue
+* myhero_ui
 
 After running the install it will take a 2-5 minutes for all three services to fully deploy and become "healthy".  You can monitor this in the Marathon Web GUI.
 
-You should be able to reach the web interface for the application at `http://DEPLOYMENTNAME-web.YOUR-DOMAIN` where `DEPLOYMENTNAME` refers to the deployment name provided at setup and `YOUR-DOMAIN` refers to the wildcard domain configured for Traefik.
+You should be able to reach the web interface for the application at `http://DEPLOYMENTNAME-ui.YOUR-DOMAIN` where `DEPLOYMENTNAME` refers to the deployment name provided at setup and `YOUR-DOMAIN` refers to the application domain configured for Traefik.
 
 ## Uninstallation
 
-Run `./myhero-uninstall-queue.sh` to remove all services from Marathon.
-
+Run `./myhero-uninstall.sh` to remove all services from Marathon.
 
 # Basic Scaling Demo
 
 A script is included to show how you can easily scale services with Mantl.
 
-Run `./myhero-scaleweb.sh` to have options to change the number of web and app instances deployed.  You can scale up or down with this script.
+Run `./myhero-scale-demo.sh` to have options to change the number of ui and app instances deployed.  You can scale up or down with this script.
 
 # Advanced Demos
 
-## Installation
-If you would rather demo deploying each service independently you can use these sample curl commands.  These commands assume that you've run `source myhero_setup` to store environment variables for key details.  This also uses the default of "myhero" as the deployment name.
-
-* Deploy the data service
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-data.json| python -m json.tool`
-* Deploy the app service
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-app.json | python -m json.tool`
-  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/app?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_data_server\": \"http://myhero-data.$MANTL_DOMAIN\", \"myhero_data_key\": \"SecureData\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
-* Deploy the web service
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @myhero-web.json | python -m json.tool`
-  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web?force=true -H "Content-type: application/json" -d "{\"env\": {\"myhero_app_server\": \"http://myhero-app.$MANTL_DOMAIN\", \"myhero_app_key\": \"SecureApp\"}}" | python -m json.tool`
-
 ## Scaling a Service
-* To scale up the web service
-  * `curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/myhero/web -H "Content-type: application/json" -d '{"instances":5}' | python -m json.tool`
+* To scale up the ui service
+
+  ```
+  curl -k -X PUT -u $MANTL_USER:$MANTL_PASSWORD \
+     https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENT_NAME/ui \
+     -H "Content-type: application/json" \
+     -d '{"instances":5}' 
+  ```
 
 ## Getting Details on a Service
 * To get the details on one of the services
-  * `curl -k -X GET -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/DEPLOYMENTNAME/web -H "Content-type: application/json" | python -m json.tool`
+
+  ```
+  curl -k -X GET -u $MANTL_USER:$MANTL_PASSWORD \
+     https://$MANTL_CONTROL:8080/v2/apps/$DEPLOYMENTNAME/ui \
+     -H "Content-type: application/json" 
+  ```
 
 ## Interfacing with the App Tier API
 
 A strength of Modern Applications are that you can interact with any of the services directly through APIs if the native interface isn't desireable.  Here are some examples interacting with the app service directly.
 
 * View the list of potential Superheros to vote for.
-  * `curl -H "key: SecureApp" http://DEPLOYMENTNAME-app.$MANTL_DOMAIN/options`
-* View the current standings.
-  * `curl -H "key: SecureApp" http://DEPLOYMENTNAME-app.$MANTL_DOMAIN/results`
-* Place a vote for a hero
-  * `curl -H "key: SecureApp" -X POST http://DEPLOYMENTNAME-app.$MANTL_DOMAIN/vote/Batman`
+  
+  ```
+  curl -H "key: SecureApp" http://$DEPLOYMENTNAME-app.$MANTL_DOMAIN/options
+  ```
 
-# MyHero Service Code and Containers
-Other services are:
+* View the current standings.
+  
+  ```
+  curl -H "key: SecureApp" http://$DEPLOYMENTNAME-app.$MANTL_DOMAIN/v2/results
+  ```
+  
+* Place a vote for a hero
+
+  ```
+  curl -H "key: SecureApp" -X POST http://$DEPLOYMENTNAME-app.$MANTL_DOMAIN/vote/Batman
+  ```
+
+# MyHero Application Code and Containers
+
+## GitHub Repos
+
 * Data - [hpreston/myhero_data](https://github.com/hpreston/myhero_data)
 * App - [hpreston/myhero_app](https://github.com/hpreston/myhero_app)
-* Web - [hpreston/myhero_web](https://github.com/hpreston/myhero_web)
+* UI - [hpreston/myhero_ui](https://github.com/hpreston/myhero_ui)
 * Ernst - [hpreston/myhero_ernst](https://github.com/hpreston/myhero_ernst)
   * Optional Service used along with an MQTT server when App is in "queue" mode
 * Spark Bot - [hpreston/myhero_spark](https://github.com/hpreston/myhero_spark)
   * Optional Service that allows voting through IM/Chat with a Cisco Spark Bot
 * Tropo App - [hpreston/myhero_tropo](https://github.com/hpreston/myhero_tropo)
   * Optional Service that allows voting through TXT/SMS messaging
+* Web - [hpreston/myhero_web](https://github.com/hpreston/myhero_web)
+	* _Original Web interface for MyHero.  Replaced by UI_
 
 
-The docker containers are available at
+## Docker Containers 
+
 * Data - [hpreston/myhero_data](https://hub.docker.com/r/hpreston/myhero_data)
 * App - [hpreston/myhero_app](https://hub.docker.com/r/hpreston/myhero_app)
-* Web - [hpreston/myhero_web](https://hub.docker.com/r/hpreston/myhero_web)
+* UI - [hpreston/myhero_ui](https://hub.docker.com/r/hpreston/
 * Ernst - [hpreston/myhero_ernst](https://hub.docker.com/r/hpreston/myhero_ernst)
   * Optional Service used along with an MQTT server when App is in "queue" mode
 * Spark Bot - [hpreston/myhero_spark](https://hub.docker.com/r/hpreston/myhero_spark)
   * Optional Service that allows voting through IM/Chat with a Cisco Spark Bot
 * Tropo App - [hpreston/myhero_tropo](https://hub.docker.com/r/hpreston/myhero_tropo)
   * Optional Service that allows voting through TXT/SMS messaging
+* Web - [hpreston/myhero_web](https://hub.docker.com/r/hpreston/myhero_web)
+	* _Original Web interface for MyHero.  Replaced by UI_
+myhero_ui)
+
 
 
 # Other Mantl Demo Ideas
 
-Here are some other ideas for demo's to run with Mantl.  Several of these leverage example content delivered with the Mantl code in the examples/ directory.  Others deploy Mesos frameworks using the Mantl API.
-
-## From examples/directory
-
-Run all these from the root directory of Mantl.  They do leverage the environment variables so be sure to run `source myhero_setup` before running these demos.
-
-* Hello-world Example
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/hello-world/hello-world.json'`
-  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/hello-world -H "Content-type: application/json" `
-* Kong Example
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/kong/kong.json'`
-  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/kong -H "Content-type: application/json" `
-* Minecraft Example
-  * `curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps -H "Content-type: application/json" -d @examples/minecraft/minecraft.json'`
-  * `curl -k -X DELETE -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps/minecraft -H "Content-type: application/json" `
-
-## DCOS Frameworks
-
-These can be run from anywhere but do leverage the environment variables so be sure to run `source myhero_setup` before running these demos.
-
-* List available packages
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL/api/1/packages | python -m json.tool`
-* Cassandra
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X POST -d "{\"name\": \"cassandra\"}" https://$MANTL_CONTROL/api/1/install  | python -m json.tool`
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X DELETE -d "{\"name\": \"cassandra\"}" https://$MANTL_CONTROL/api/1/install  | python -m json.tool`
-* Kafka
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X POST -d "{\"name\": \"kafka\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X DELETE -d "{\"name\": \"kafka\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-* HDFS
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X POST -d "{\"name\": \"hdfs\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X DELETE -d "{\"name\": \"hdfs\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-* Elastiseach
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X POST -d "{\"name\": \"elasticsearch\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X DELETE -d "{\"name\": \"elasticsearch\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-* Arangodb
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X POST -d "{\"name\": \"arangodb\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
-  * `curl -k -u $MANTL_USER:$MANTL_PASSWORD -X DELETE -d "{\"name\": \"arangodb\"}" https://$MANTL_CONTROL/api/1/install | python -m json.tool`
+There are many other ideas for demo's to run with Mantl.  Several of these leverage example content delivered with the Mantl code in the examples/ directory.  Others deploy Mesos frameworks using the Mantl API.  Review these directories as well as the documentation at [docs.mantl.io](http://docs.mantl.io).
 

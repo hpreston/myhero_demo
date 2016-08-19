@@ -2,8 +2,7 @@
 
 echo
 echo "Thank you for using the MyHero Demo Application."
-echo "This script will install all of the Microservices needed, "
-echo "for a basic installation. "
+echo "This script will install with the minimal Microservices needed. "
 echo
 echo "Press Enter to continue..."
 read confirm
@@ -29,6 +28,8 @@ else
     exit 1
 fi
 
+
+
 echo "************************************************************************************************"
 # Create Copy of JSON Definitions for Deployment
 echo "Creating Marathon Service Definitions for each service."
@@ -37,39 +38,19 @@ cp templates/sample-myhero-data.json app_definitions/$DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-data.json
 sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-data.json
-echo "     myhero_data service:   app_definitions/$DEPLOYMENT_NAME-data.json"
-
-cp templates/sample-myhero-mosca.json app_definitions/$DEPLOYMENT_NAME-mosca.json
-sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-mosca.json
-sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-mosca.json
-sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-mosca.json
-echo "     myhero_mosca service:  app_definitions/$DEPLOYMENT_NAME-mosca.json"
+echo "     myhero_data service:  app_definitions/$DEPLOYMENT_NAME-data.json"
 
 cp templates/sample-myhero-app.json app_definitions/$DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-app.json
-sed -i "" -e "s/direct/queue/g" app_definitions/$DEPLOYMENT_NAME-app.json
 sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-app.json
-echo "     myhero_app service:    app_definitions/$DEPLOYMENT_NAME-app.json"
-
-cp templates/sample-myhero-ernst.json app_definitions/$DEPLOYMENT_NAME-ernst.json
-sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-ernst.json
-sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-ernst.json
-sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-ernst.json
-echo "     myhero_ernst service:  app_definitions/$DEPLOYMENT_NAME-ernst.json"
-
+echo "     myhero_app service:   app_definitions/$DEPLOYMENT_NAME-app.json"
 
 cp templates/sample-myhero-ui.json app_definitions/$DEPLOYMENT_NAME-ui.json
 sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-ui.json
 sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-ui.json
 sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-ui.json
-echo "     myhero_ui service:     app_definitions/$DEPLOYMENT_NAME-ui.json"
-
-#cp templates/sample-myhero-web.json app_definitions/$DEPLOYMENT_NAME-web.json
-#sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-web.json
-#sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-web.json
-#sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-web.json
-#echo "     myhero_web service:    app_definitions/$DEPLOYMENT_NAME-web.json"
+echo "     myhero_ui service:    app_definitions/$DEPLOYMENT_NAME-ui.json"
 
 echo " "
 echo "************************************************************************************************"
@@ -78,14 +59,6 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 -o /dev/null \
 -H "Content-type: application/json" \
 -d @app_definitions/$DEPLOYMENT_NAME-data.json
-echo "************************************************************************************************"
-echo
-
-echo Deploying Mosca
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
--o /dev/null \
--H "Content-type: application/json" \
--d @app_definitions/$DEPLOYMENT_NAME-mosca.json
 echo "************************************************************************************************"
 echo
 
@@ -100,24 +73,8 @@ curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/ap
 echo "************************************************************************************************"
 echo
 
-echo Deploying Ernst Service
-curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
--o /dev/null \
--H "Content-type: application/json" \
--d @app_definitions/$DEPLOYMENT_NAME-ernst.json
-echo "************************************************************************************************"
-echo
-
 echo 'Pausing for 30 seconds API layer startup...'
 sleep 30
-
-#echo Deploying Web Service
-#curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
-#-o /dev/null \
-#-H "Content-type: application/json" \
-#-d @app_definitions/$DEPLOYMENT_NAME-web.json
-#echo "************************************************************************************************"
-#echo
 
 echo Deploying UI Service
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
@@ -137,4 +94,3 @@ echo " "
 echo "    http://$DEPLOYMENT_NAME-ui.$MANTL_DOMAIN "
 echo " "
 echo " "
-

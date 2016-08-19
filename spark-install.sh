@@ -1,5 +1,20 @@
 #! /bin/bash
 
+echo
+echo "Thank you for using the MyHero Demo Application."
+echo "This script will install the Spark Bot Microservice. "
+echo "for a basic installation. "
+echo
+echo "Reminder, in order to leverage myhero_spark, your Mantl "
+echo "environment MUST be accessible from the Public Internet. "
+echo "If your Mantl cluster is deployed in an internal lab, not "
+echo "publically accessible, this service will not work."
+echo
+echo "Press Enter to continue..."
+read confirm
+echo
+
+
 [ -z "$MANTL_CONTROL" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 [ -z "$MANTL_USER" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
 [ -z "$MANTL_PASSWORD" ] && echo "Please run 'source myhero_setup' to set Environment Variables" && exit 1;
@@ -12,35 +27,32 @@
 # Create Copy of JSON Definitions for Deployment
 echo "Creating Service Definifition "
 
-cp sample-myhero-spark.json $DEPLOYMENT_NAME-spark.json
-sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" $DEPLOYMENT_NAME-spark.json
-sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" $DEPLOYMENT_NAME-spark.json
-sed -i "" -e "s/SPARKEMAIL/$SPARK_EMAIL/g" $DEPLOYMENT_NAME-spark.json
-sed -i "" -e "s/SPARKTOKEN/$SPARK_TOKEN/g" $DEPLOYMENT_NAME-spark.json
-sed -i "" -e "s/TAG/$TAG/g" $DEPLOYMENT_NAME-spark.json
+cp templates/sample-myhero-spark.json app_definitions/$DEPLOYMENT_NAME-spark.json
+sed -i "" -e "s/DEPLOYMENTNAME/$DEPLOYMENT_NAME/g" app_definitions/$DEPLOYMENT_NAME-spark.json
+sed -i "" -e "s/MANTLDOMAIN/$MANTL_DOMAIN/g" app_definitions/$DEPLOYMENT_NAME-spark.json
+sed -i "" -e "s/SPARKEMAIL/$SPARK_EMAIL/g" app_definitions/$DEPLOYMENT_NAME-spark.json
+sed -i "" -e "s/SPARKTOKEN/$SPARK_TOKEN/g" app_definitions/$DEPLOYMENT_NAME-spark.json
+sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-spark.json
+echo "     myhero_spark service:   app_definitions/$DEPLOYMENT_NAME-spark.json"
 
 
 echo " "
 echo "***************************************************"
 echo Deploying Spark Service
 curl -k -X POST -u $MANTL_USER:$MANTL_PASSWORD https://$MANTL_CONTROL:8080/v2/apps \
+-o /dev/null \
 -H "Content-type: application/json" \
--d @$DEPLOYMENT_NAME-spark.json \
-| python -m json.tool
-
+-d @app_definitions/$DEPLOYMENT_NAME-spark.json
 echo "***************************************************"
 echo
 
 echo Deployed
 echo " "
-echo "Wait 5-10 minutes for the service to deploy "
-echo "and then run the following command to list members of the room."
+echo "Wait 3-5 minutes for the service to deploy "
 echo " "
-echo "    curl -H \"key: SecureBot\" http://$DEPLOYMENT_NAME-spark.$MANTL_DOMAIN/demoroom/members"
+echo "To have the Bot send a message to a user, run this command "
 echo " "
-echo "To add a member ot the room, run this command "
-echo " "
-echo "    curl -X PUT -H \"key: SecureBot\" http://$DEPLOYMENT_NAME-spark.$MANTL_DOMAIN/demoroom/members -d '{\"email\":\"<emailaddress>\"}' "
+echo "    curl -H \"key: SecureBot\" http://$DEPLOYMENT_NAME-spark.$MANTL_DOMAIN/hello/<emailaddress>"
 echo " "
 
 

@@ -1,3 +1,15 @@
+echo
+echo "Thank you for using the MyHero Demo Application."
+echo "In order to install the Tropo App, "
+echo "several pieces of information are needed.  "
+echo
+echo "Reminder, in order to leverage myhero_tropo, your Mantl "
+echo "environment MUST be accessible from the Public Internet. "
+echo "If your Mantl cluster is deployed in an internal lab, not "
+echo "publically accessible, this service will not work."
+echo
+echo "*******************************************************"
+
 
 echo Please provide basic details on your Cisco Tropo Account.
 echo
@@ -21,10 +33,19 @@ echo "What is your the phone number prefix you want for the Tropo Number: "
 echo "Include country code and area code, no spaces, no +."
 read tropo_prefix
 echo
-
-
 export TROPO_PREFIX="$tropo_prefix"
 
+echo "*******************************************************"
+echo "Your information is being saved in this session as "
+echo "environment variables.  They will be removed as soon "
+echo "as you close this terminal session.  "
+
+echo "*******************************************************"
+echo "MyHero Tropo Bot Setup Complete!  "
+echo
+echo "To install the Tropo Bot, run ./spark-install.sh "
+echo
 echo "Tropo Application 'myherodemo' will be setup if doesn't exist. "
 echo "A number in prefix $TROPO_PREFIX will be added if doesn't exist"
+echo
 

@@ -1,3 +1,8 @@
+echo
+echo "Thank you for using the MyHero Demo Application."
+echo "In order to install it into your Mantl Environment, "
+echo "several pieces of information are needed.  "
+echo
 
 echo Please provide basic details on your Mantl install.
 echo
@@ -8,15 +13,17 @@ echo
 echo "What is the username for your Mantl account?  "
 read mantl_user
 echo
-echo
 echo "What is the password for your Mantl account?  "
 read -s mantl_password
 echo
-echo
-echo "What is the Traefik domain for your deployed apps?  "
+echo "What is the Application domain used by Mantl?  "
+echo "    * Also referred to as the Traefik Domain"
 read mantl_domain
 echo
-
+echo "*******************************************************"
+echo "Your information is being saved in this session as "
+echo "environment variables.  They will be removed as soon "
+echo "as you close this terminal session.  "
 
 export MANTL_CONTROL="$control_address"
 export MANTL_USER="$mantl_user"
@@ -25,6 +32,8 @@ export MANTL_DOMAIN="$mantl_domain"
 export TAG="latest"
 
 echo
+echo "Now some details on how you want to install MyHero."
+echo
 echo "What do you want your deployment to be named?  "
 echo "For example, with a name of \"myhero\", you will visit http://myhero-web.$MANTL_DOMAIN to view the application"
 read deployment_name
@@ -32,6 +41,19 @@ echo
 
 export DEPLOYMENT_NAME="$deployment_name"
 
+echo "*******************************************************"
+echo "Basic MyHero Setup Complete!  "
+echo "If you plan to install the Spark or Tropo services, "
+echo "you will need to run the following before moving forward. "
+echo "   source spark_setup "
+echo "   source tropo_setup "
+echo
+
 echo "Marathon API calls will be sent to: "
 echo "https://$MANTL_CONTROL:8080/"
+echo
+
+echo "*******************************************************"
+echo "To install MyHero, run ./myhero-install.sh "
+echo
 

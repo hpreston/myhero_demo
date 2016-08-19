@@ -55,6 +55,22 @@ The Application is designed to look for key words to act on, and provide the bas
 * vote **Option**
   * register a vote for the identified option
 
+## REST APIs
+
+# /hello/:phonenumber 
+
+There is an API call that can be leveraged to have the Tropo Bot initiate an SMS session with a user.  This API responds to GET requests and then will send a SMS message to the phone number provided.  
+
+Example usage
+
+```
+curl http://myhero-tropo.domain.local/hello/5551234567
+```
+
 ## Uninstallation
 
-Run `./tropo-uninstall.sh` to remove the Tropo Service from Marathon.  __At this time, no cleanup inside of Tropo (deletion of the applciation) is done automatically__.
+The Tropo Bot is uninstalled with the same script used to uninstall the rest of the MyHero application.  
+
+Run `./myhero-uninstall.sh` to remove all services from Marathon.  
+
+__At this time, no cleanup inside of Tropo (deletion of the applciation) is done automatically__.

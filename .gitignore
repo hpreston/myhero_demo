@@ -1,2 +1,3 @@
 .idea/
 .vagrant
+app_definitions/*.json

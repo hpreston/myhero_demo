@@ -1,3 +1,14 @@
+echo
+echo "Thank you for using the MyHero Demo Application."
+echo "In order to install the Spark Bot, "
+echo "several pieces of information are needed.  "
+echo
+echo "Reminder, in order to leverage myhero_spark, your Mantl "
+echo "environment MUST be accessible from the Public Internet. "
+echo "If your Mantl cluster is deployed in an internal lab, not "
+echo "publically accessible, this service will not work."
+echo
+echo "*******************************************************"
 
 echo Please provide basic details on your Cisco Spark Account.
 echo
@@ -8,7 +19,10 @@ echo "What is your Cisco Spark Developer Token: "
 echo "  * Input hidden"
 read -s spark_token
 echo
-
+echo "*******************************************************"
+echo "Your information is being saved in this session as "
+echo "environment variables.  They will be removed as soon "
+echo "as you close this terminal session.  "
 
 export SPARK_EMAIL="$spark_email"
 export SPARK_TOKEN="$spark_token"
@@ -16,3 +30,8 @@ export SPARK_TOKEN="$spark_token"
 echo "Spark Bot will be setup using: "
 echo "$SPARK_EMAIL"
 
+echo "*******************************************************"
+echo "MyHero Spark Bot Setup Complete!  "
+echo
+echo "To install the Spark Bot, run ./spark-install.sh "
+echo
