@@ -40,32 +40,37 @@ In order to access the APIs of Spark, this bot needs the Developer Token for you
 
 * After running the install it will take a 2-5 minutes for the service to fully deploy and become "healthy".  You can monitor this in the Marathon Web GUI.
 
-* At first run, the spark bot will create a new room called "MyHero Demo".  If you are using your own account, you will see this in your Spark Client.  If you built a new Spark Account for the bot, you'll want to add yourself to the room so you can interact with the bot.
-  * Execute this curl command to add your own email to the room.  (replace **EMAIL_ADDRESS** with your email.  )
-  * `curl -X PUT -H "key: SecureBot" http://myhero-spark.$MANTL_DOMAIN/demoroom/members -d '{"email":"EMAIL_ADDRESS"}'`
-* You can view list of users in the room
-  * `curl -X GET -H "key: SecureBot" http://myhero-spark.$MANTL_DOMAIN/demoroom/members`
-
 
 ## Interacting with the Spark Bot
-The Spark Bot is a very simple interface that is designed to make it intuitive to use.  Once in the room, simply say "hello", "help" (or anything else) to have the bot reply back with some instructions on how to access the features.
+The Spark Bot is a very simple interface that is designed to make it intuitive to use.  Simply send any message to the Spark Bot Email Address to have the bot reply back with some instructions on how to access the features.
 
-The bot is deisgned to look for key words to act on, and provide the basic help message for anything else.  The key words are:
+The bot is deisgned to look for commands to act on, and provide the basic help message for anything else.  The commands are:
 
-* options
+* /options
   * return a list of the current available options to vote on
-* results
+* /results
   * list the current status of voting results
-* vote
-  * send a private message to the sender to start a voting session
-  * in the private room typing the name of one of the options will register a vote and end the session
+* /vote {{ option }} 
+  * Place a vote for the 'option'
+* /help 
+  * Provide a help message
 
-An additional keyword of "add email" is also looked for.  This will have the bot add new users to the room.  Examples are:
-* `add email joe@domain.intra`
-  * add single user to the room
-* `add emails joe@domain.intra, jane@domain.intra, bob@domain.intra`
-  * add each of the three listed emails to the room
+## REST APIs
+
+### /hello/:email 
+
+There is an API call that can be leveraged to have the Spark Bot initiate a chat session with a user.  This API responds to GET requests and then will send a Spark message to the email provided.  
+
+Example usage
+
+```
+curl http://myhero-spark.domain.local/hello/user@email.com 
+```
 
 ## Uninstallation
 
-Run `./spark-uninstall.sh` to remove the Spark Bot from Marathon.  __At this time, no cleanup on rooms, webhooks, or messages in Spark is done__.
+The Spark Bot is uninstalled with the same script used to uninstall the rest of the MyHero application.  
+
+Run `./myhero-uninstall.sh` to remove all services from Marathon.  
+
+__At this time, no cleanup on rooms, webhooks, or messages in Spark is done__.
