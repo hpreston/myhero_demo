@@ -1,0 +1,31 @@
+{
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "minio/minio",
+            "forcePullImage": false,
+            "network": "BRIDGE",
+            "portMappings": [{
+                "containerPort": 9000,
+                "hostPort": 0
+            }]
+        },
+        "forcePullImage": false
+    },
+    "healthChecks": [{
+        "protocol": "TCP",
+        "portIndex": 0
+    }],
+    "id": "/DEPLOYMENTNAME/minio",
+    "instances": 1,
+    "cpus": 0.2,
+    "mem": 128,
+    "env": {
+        "MINIO_ACCESS_KEY": "MINIOACCESSID",
+        "MINIO_SECRET_KEY": "MINIOSECRET"
+
+    },
+    "labels": {
+        "traefik.enable": "true"
+    }
+}

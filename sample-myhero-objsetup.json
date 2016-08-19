@@ -1,0 +1,28 @@
+{
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "hpreston/myhero_objsetup:TAG",
+            "forcePullImage": true,
+            "network": "BRIDGE",
+            "portMappings": [{
+            }]
+        },
+        "forcePullImage": true
+    },
+    "healthChecks": [{
+    }],
+    "id": "/DEPLOYMENTNAME/objsetup",
+    "instances": 1,
+    "cpus": 0.2,
+    "mem": 32,
+    "env": {
+      "minio_server": "MINIOURL",
+      "minio_access_id": "MINIOACCESSID",
+      "minio_secret": "MINIOSECRET"
+
+    },
+    "labels": {
+        "traefik.enable": "false"
+    }
+}
