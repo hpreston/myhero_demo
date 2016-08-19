@@ -21,6 +21,8 @@
     "cpus": 0.2,
     "mem": 64,
     "env": {
+        "myhero_tropo_server": "http://DEPLOYMENTNAME-tropo.MANTLDOMAIN",
+        "myhero_spark_server": "http://DEPLOYMENTNAME-spark.MANTLDOMAIN",
         "myhero_app_server": "http://DEPLOYMENTNAME-app.MANTLDOMAIN",
         "myhero_app_key": "SecureApp"
     }
