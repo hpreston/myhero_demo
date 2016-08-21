@@ -43,7 +43,7 @@ echo "as you close this terminal session.  "
 echo "*******************************************************"
 echo "MyHero Tropo Bot Setup Complete!  "
 echo
-echo "To install the Tropo Bot, run ./spark-install.sh "
+echo "To install the Tropo Bot, run ./tropo-install.sh "
 echo
 echo "Tropo Application 'myherodemo' will be setup if doesn't exist. "
 echo "A number in prefix $TROPO_PREFIX will be added if doesn't exist"

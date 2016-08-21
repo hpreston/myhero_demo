@@ -54,7 +54,7 @@ sed -i "" -e "s/TROPOPREFIX/$TROPO_PREFIX/g" app_definitions/$DEPLOYMENT_NAME-tr
 sed -i "" -e "s/TAG/$TAG/g" app_definitions/$DEPLOYMENT_NAME-tropo.json
 
 echo Checking if Tropo Application Called "myherodemo" exists already.
-python tropo_utils.py applicationcheck myherodemo
+python tropo_utils.py applicationcheck "myherodemo $DEPLOYMENTNAME-tropo"
 
 if [ $? -eq 0 ]
 then
