@@ -48,12 +48,12 @@ fi
 echo "Creating Service Definifition "
 
 cp templates/sample-myhero-tropo.json app_definitions/${DEPLOYMENT_NAME}-tropo.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
-sed -i "" -e "s/TROPOUSER/${TROPO_USER}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
-sed -i "" -e "s/TROPOPASS/${TROPO_PASS}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
-sed -i "" -e "s/TROPOPREFIX/${TROPO_PREFIX}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
+sed -i -e "s/TROPOUSER/${TROPO_USER}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
+sed -i -e "s/TROPOPASS/${TROPO_PASS}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
+sed -i -e "s/TROPOPREFIX/${TROPO_PREFIX}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-tropo.json
 
 echo Checking if Tropo Application Called "myherodemo ${DEPLOYMENT_NAME}-tropo" exists already.
 python tropo_utils.py applicationcheck "myherodemo ${DEPLOYMENT_NAME}-tropo"

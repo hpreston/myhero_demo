@@ -35,41 +35,41 @@ echo "**************************************************************************
 echo "Creating Marathon Service Definitions for each service."
 
 cp templates/sample-myhero-data.json app_definitions/${DEPLOYMENT_NAME}-data.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-data.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-data.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-data.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-data.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-data.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-data.json
 echo "     myhero_data service:   app_definitions/${DEPLOYMENT_NAME}-data.json"
 
 cp templates/sample-myhero-mosca.json app_definitions/${DEPLOYMENT_NAME}-mosca.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-mosca.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-mosca.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-mosca.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-mosca.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-mosca.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-mosca.json
 echo "     myhero_mosca service:  app_definitions/${DEPLOYMENT_NAME}-mosca.json"
 
 cp templates/sample-myhero-app.json app_definitions/${DEPLOYMENT_NAME}-app.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-app.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-app.json
-sed -i "" -e "s/direct/queue/g" app_definitions/${DEPLOYMENT_NAME}-app.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-app.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-app.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-app.json
+sed -i -e "s/direct/queue/g" app_definitions/${DEPLOYMENT_NAME}-app.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-app.json
 echo "     myhero_app service:    app_definitions/${DEPLOYMENT_NAME}-app.json"
 
 cp templates/sample-myhero-ernst.json app_definitions/${DEPLOYMENT_NAME}-ernst.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-ernst.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-ernst.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-ernst.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-ernst.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-ernst.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-ernst.json
 echo "     myhero_ernst service:  app_definitions/${DEPLOYMENT_NAME}-ernst.json"
 
 
 cp templates/sample-myhero-ui.json app_definitions/${DEPLOYMENT_NAME}-ui.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-ui.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-ui.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-ui.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-ui.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-ui.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-ui.json
 echo "     myhero_ui service:     app_definitions/${DEPLOYMENT_NAME}-ui.json"
 
 #cp templates/sample-myhero-web.json app_definitions/${DEPLOYMENT_NAME}-web.json
-#sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-web.json
-#sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-web.json
-#sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-web.json
+#sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-web.json
+#sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-web.json
+#sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-web.json
 #echo "     myhero_web service:    app_definitions/${DEPLOYMENT_NAME}-web.json"
 
 echo " "

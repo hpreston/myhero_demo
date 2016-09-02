@@ -30,11 +30,11 @@ set -euo pipefail
 echo "Creating Service Definifition "
 
 cp templates/sample-myhero-spark.json app_definitions/${DEPLOYMENT_NAME}-spark.json
-sed -i "" -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
-sed -i "" -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
-sed -i "" -e "s/SPARKEMAIL/${SPARK_EMAIL}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
-sed -i "" -e "s/SPARKTOKEN/${SPARK_TOKEN}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
-sed -i "" -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
+sed -i -e "s/DEPLOYMENTNAME/${DEPLOYMENT_NAME}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
+sed -i -e "s/MANTLDOMAIN/${MANTL_DOMAIN}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
+sed -i -e "s/SPARKEMAIL/${SPARK_EMAIL}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
+sed -i -e "s/SPARKTOKEN/${SPARK_TOKEN}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
+sed -i -e "s/TAG/${TAG}/g" app_definitions/${DEPLOYMENT_NAME}-spark.json
 echo "     myhero_spark service:   app_definitions/${DEPLOYMENT_NAME}-spark.json"
 
 
