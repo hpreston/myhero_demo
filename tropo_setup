@@ -20,8 +20,8 @@ echo "What is your Tropo Account Password: "
 echo "  * Input hidden"
 read -s tropo_pass
 
-export TROPO_USER="$tropo_user"
-export TROPO_PASS="$tropo_pass"
+export TROPO_USER="${tropo_user}"
+export TROPO_PASS="${tropo_pass}"
 
 
 echo
@@ -33,7 +33,7 @@ echo "What is your the phone number prefix you want for the Tropo Number: "
 echo "Include country code and area code, no spaces, no +."
 read tropo_prefix
 echo
-export TROPO_PREFIX="$tropo_prefix"
+export TROPO_PREFIX="${tropo_prefix}"
 
 echo "*******************************************************"
 echo "Your information is being saved in this session as "
@@ -46,6 +46,6 @@ echo
 echo "To install the Tropo Bot, run ./tropo-install.sh "
 echo
 echo "Tropo Application 'myherodemo' will be setup if doesn't exist. "
-echo "A number in prefix $TROPO_PREFIX will be added if doesn't exist"
+echo "A number in prefix ${TROPO_PREFIX} will be added if doesn't exist"
 echo
 

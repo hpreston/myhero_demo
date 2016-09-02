@@ -10,6 +10,19 @@ echo "What is the address of your Control Servers?  "
 echo "eg: control.mantl.internet.com"
 read control_address
 echo
+
+control_port=8080
+echo "  The default port for Marathon API is 8080.  "
+echo "  Does your deployment use a different port?  yes/no"
+read ANSWER
+
+if [ ${ANSWER} == "yes" ]
+then
+    echo "What port does Marathon API listen on?"
+    read control_port
+fi
+
+echo
 echo "What is the username for your Mantl account?  "
 read mantl_user
 echo
@@ -25,21 +38,21 @@ echo "Your information is being saved in this session as "
 echo "environment variables.  They will be removed as soon "
 echo "as you close this terminal session.  "
 
-export MANTL_CONTROL="$control_address"
-export MANTL_USER="$mantl_user"
-export MANTL_PASSWORD="$mantl_password"
-export MANTL_DOMAIN="$mantl_domain"
+export MANTL_CONTROL="${control_address}:${control_port}"
+export MANTL_USER="${mantl_user}"
+export MANTL_PASSWORD="${mantl_password}"
+export MANTL_DOMAIN="${mantl_domain}"
 export TAG="latest"
 
 echo
 echo "Now some details on how you want to install MyHero."
 echo
 echo "What do you want your deployment to be named?  "
-echo "For example, with a name of \"myhero\", you will visit http://myhero-web.$MANTL_DOMAIN to view the application"
+echo "For example, with a name of \"myhero\", you will visit http://myhero-web.${MANTL_DOMAIN} to view the application"
 read deployment_name
 echo
 
-export DEPLOYMENT_NAME="$deployment_name"
+export DEPLOYMENT_NAME="${deployment_name}"
 
 echo "*******************************************************"
 echo "Basic MyHero Setup Complete!  "
@@ -50,7 +63,7 @@ echo "   source tropo_setup "
 echo
 
 echo "Marathon API calls will be sent to: "
-echo "https://$MANTL_CONTROL:8080/"
+echo "https://${MANTL_CONTROL}/"
 echo
 
 echo "*******************************************************"

@@ -58,7 +58,7 @@ except:
     chelp()
     sys.exit(1)
 
-marathon_host = "https://%s:8080" % (mantl_control)
+marathon_host = "https://%s" % (mantl_control)
 base64string = base64.encodestring('%s:%s' % (mantl_user, mantl_password)).replace('\n', '')
 authheader =  "Basic %s" % base64string
 
