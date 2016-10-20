@@ -6,35 +6,55 @@ echo
 
 echo Please provide basic details on your Mantl install.
 echo
-echo "What is the address of your Control Servers?  "
-echo "eg: control.mantl.internet.com"
-read control_address
+echo "If you do not have a Mantl Environment available you "
+echo "can leverage the Cisco DevNet Mantl Sandbox.  "
+echo "Details can be found at: https://developer.cisco.com/site/mantl/"
 echo
-
-control_port=8080
-echo "  The default port for Marathon API is 8080.  "
-echo "  Does your deployment use a different port?  yes/no"
-read ANSWER
-
-if [ ${ANSWER} == "yes" ]
+echo "You can access the Sandbox at: "
+echo "    https://mantlsandbox.cisco.com "
+echo "    user/pass: admin/1vtG@lw@y"
+echo
+echo "Would you like to leverage the Cisco DevNet Sandbox?  yes/no"
+read SB
+if [ ${SB} == "yes" ]
 then
-    echo "What port does Marathon API listen on?"
-    read control_port
+    control_address=mantlsandbox.cisco.com
+    mantl_user=admin
+    mantl_password=1vtG@lw@y
+    mantl_domain=app.mantldevnetsandbox.com
+    control_port=8080
+else
+    echo
+    echo "What is the address of your Control Servers?  "
+    echo "eg: control.mantl.internet.com"
+    read control_address
+    echo
+
+    control_port=8080
+    echo "  The default port for Marathon API is 8080.  "
+    echo "  Does your deployment use a different port?  yes/no"
+    read ANSWER
+
+    if [ ${ANSWER} == "yes" ]
+    then
+        echo "What port does Marathon API listen on?"
+        read control_port
+    fi
+
+    echo
+    echo "What is the username for your Mantl account?  "
+    read mantl_user
+    echo
+    echo "What is the password for your Mantl account?  "
+    read -s mantl_password
+    echo
+    echo "What is the Application domain used by Mantl?  "
+    echo "    * Also referred to as the Traefik Domain"
+    read mantl_domain
 fi
 
-echo
-echo "What is the username for your Mantl account?  "
-read mantl_user
-echo
-echo "What is the password for your Mantl account?  "
-read -s mantl_password
-echo
-echo "What is the Application domain used by Mantl?  "
-echo "    * Also referred to as the Traefik Domain"
-read mantl_domain
-echo
 echo "*******************************************************"
-echo "Your information is being saved in this session as "
+echo "The Mantl Setup Infromation is being saved in this session as "
 echo "environment variables.  They will be removed as soon "
 echo "as you close this terminal session.  "
 

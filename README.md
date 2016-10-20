@@ -3,7 +3,20 @@
 
 ![MyHero Demo Application](diagrams/myhero-demo-i2.png)
 
+## Links
+
+* [Setup](#setup)
+* [Install](#install)
+* [Basic Scaling Demo](#basic-scaling-demo)
+* [Advanced Demos](#advanced-demos)
+* [Code and Containers](#myhero-application-code-and-containers)
+* [Uninstallation](#uninstallation)
+
+# Background
+
 This is provided as a very simple application that can be used to demonstrate the concepts behind a cloud native application that can be deployed onto [Cisco Mantl](http://mantl.io).  Though designed with Mantl in mind, there is nothing specific to the application and underlying services that require Mantl to function.  Any platform for deploying container based microservices should be acceptable.
+
+[Cisco Devnet](http://developer.cisco.com) provides a Mantl Sandbox for anyone to use for testing, learning and developing that can be easily leveraged with the MyHero application.  Details on Mantl can be found at [Mantl @ DevNet](https://developer.cisco.com/site/mantl/).  And you can access the Sandbox details at [Mantl Sandbox](https://devnetsandbox.cisco.com/RM/Diagram/Index/94487c25-2b16-4204-b45f-09a5939b0f57?diagramType=Topology). 
 
 The application provides a simple interface for gathering and reporting votes about the best movie superheros.
 
@@ -79,10 +92,6 @@ After running the install it will take a 2-5 minutes for all three services to f
 
 You should be able to reach the web interface for the application at `http://DEPLOYMENTNAME-ui.YOUR-DOMAIN` where `DEPLOYMENTNAME` refers to the deployment name provided at setup and `YOUR-DOMAIN` refers to the application domain configured for Traefik.
 
-## Uninstallation
-
-Run `./myhero-uninstall.sh` to remove all services from Marathon.
-
 # Basic Scaling Demo
 
 A script is included to show how you can easily scale services with Mantl.
@@ -117,19 +126,19 @@ A strength of Modern Applications are that you can interact with any of the serv
 * View the list of potential Superheros to vote for.
   
   ```
-  curl -H "key: SecureApp" http://$DEPLOYMENTNAME-app.$MANTL_DOMAIN/options
+  curl -H "key: SecureApp" http://$DEPLOYMENT_NAME-app.$MANTL_DOMAIN/options
   ```
 
 * View the current standings.
   
   ```
-  curl -H "key: SecureApp" http://$DEPLOYMENTNAME-app.$MANTL_DOMAIN/v2/results
+  curl -H "key: SecureApp" http://$DEPLOYMENT_NAME-app.$MANTL_DOMAIN/v2/results
   ```
   
 * Place a vote for a hero
 
   ```
-  curl -H "key: SecureApp" -X POST http://$DEPLOYMENTNAME-app.$MANTL_DOMAIN/vote/Batman
+  curl -H "key: SecureApp" -X POST http://$DEPLOYMENT_NAME-app.$MANTL_DOMAIN/vote/Batman
   ```
 
 # MyHero Application Code and Containers
@@ -153,7 +162,7 @@ A strength of Modern Applications are that you can interact with any of the serv
 
 * Data - [hpreston/myhero_data](https://hub.docker.com/r/hpreston/myhero_data)
 * App - [hpreston/myhero_app](https://hub.docker.com/r/hpreston/myhero_app)
-* UI - [hpreston/myhero_ui](https://hub.docker.com/r/hpreston/
+* UI - [hpreston/myhero_ui](https://hub.docker.com/r/hpreston/)
 * Ernst - [hpreston/myhero_ernst](https://hub.docker.com/r/hpreston/myhero_ernst)
   * Optional Service used along with an MQTT server when App is in "queue" mode
 * Spark Bot - [hpreston/myhero_spark](https://hub.docker.com/r/hpreston/myhero_spark)
@@ -164,9 +173,10 @@ A strength of Modern Applications are that you can interact with any of the serv
 	* _Original Web interface for MyHero.  Replaced by UI_
 myhero_ui)
 
-
-
 # Other Mantl Demo Ideas
 
 There are many other ideas for demo's to run with Mantl.  Several of these leverage example content delivered with the Mantl code in the examples/ directory.  Others deploy Mesos frameworks using the Mantl API.  Review these directories as well as the documentation at [docs.mantl.io](http://docs.mantl.io).
 
+# Uninstallation
+
+Run `./myhero-uninstall.sh` to remove all services from Marathon.
