@@ -1,0 +1,235 @@
+# Docker Stack Sample
+# * myhero configuration for service docker configuration
+# * After configuration, process this conf file:
+#   * Init : docker swarm init
+#   * Start: docker stack deploy --compose-file docker-stack.yml myhero
+#   * Stop : docker stack rm myhero
+# * Host port usage
+#   * 10101: data
+#   * 10201: app
+#   * 10301: web
+#   * 10401: ui
+#   * 10501: spark
+#   * 10601: tropo
+#   * 10701: ernst
+#   * 10801: mosca
+#
+version: '3.0'
+
+networks:
+  default:
+
+services:
+  data:
+    hostname: myhero_data
+    image: hpreston/myhero_data
+    networks:
+      - "default"
+    ports:
+    - 10101:5000/tcp
+    volumes:
+    - /docker/myhero/myhero_data:/app:rw
+    environment:
+      - myhero_data_key=DATA KEY
+    deploy:
+      replicas: 3
+      labels:
+        feature.description: "Data"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  mosca:
+    hostname: myhero_mosca
+    image: matteocollina/mosca
+    networks:
+      - "default"
+    ports:
+    - 10701:80/tcp
+    volumes:
+    - /docker/myhero/myhero_mosca:/app:rw
+    environment:
+      - myhero_data_key=DATA KEY
+      - myhero_data_server=http://myhero_data:5000
+      - myhero_mqtt_host=http://myhero_mosca:5000
+      - myhero_mqtt_port=1883
+    depends_on:
+    - data
+    deploy:
+      replicas: 2
+      labels:
+        feature.description: "Mosca"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  ernst:
+    hostname: myhero_ernst
+    image: hpreston/myhero_ernst
+    networks:
+      - "default"
+    ports:
+    - 10801:5000/tcp
+    volumes:
+    - /docker/myhero/myhero_ernst:/app:rw
+    environment:
+      - myhero_data_key=DATA KEY
+      - myhero_data_server=http://myhero_data:5000
+      - myhero_mqtt_host=myhero_mosca
+      - myhero_mqtt_server=myhero_mosca
+      - myhero_mqtt_port=1883
+    depends_on:
+    - mosca
+    - data
+    deploy:
+      replicas: 2
+      labels:
+        feature.description: "Ernst"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  app:
+    hostname: myhero_app
+    image: hpreston/myhero_app
+    networks:
+      - "default"
+    ports:
+    - 10201:5000/tcp
+    volumes:
+    - /docker/myhero/myhero_app:/app:rw
+    environment:
+      - myhero_data_key=DATA KEY
+      - myhero_data_server=http://myhero_data:5000
+      - myhero_app_key=APP KEY
+      #- myhero_app_mode=direct
+      - myhero_app_mode=queue
+      - myhero_mqtt_host=myhero_mosca
+      - myhero_mqtt_server=myhero_mosca
+      - myhero_mqtt_port=1883
+    depends_on:
+    - ernst
+    deploy:
+      replicas: 3
+      labels:
+        feature.description: "App"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  web:
+    hostname: myhero_web
+    image: hpreston/myhero_web
+    networks:
+      - "default"
+    ports:
+    - 10301:5000/tcp
+    volumes:
+    - /docker/myhero/myhero_web:/app:rw
+    environment:
+      - myhero_app_key=APP KEY
+      - myhero_app_server=http://myhero_app:5000
+    depends_on:
+    - app
+    deploy:
+      replicas: 1
+      labels:
+        feature.description: "Web"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  ui:
+    hostname: myhero_ui
+    image: hpreston/myhero_ui
+    networks:
+      - "default"
+    ports:
+    - 10401:80/tcp
+    volumes:
+    - /docker/myhero/myhero_ui:/app:rw
+    environment:
+      - myhero_app_server=http://PUBLIC IP:10201
+      - myhero_app_key=APP KEY
+      - myhero_spark_server=http://PUBLIC IP:10501
+      - myhero_tropo_server=http://PUBLIC IP:10601
+    depends_on:
+    - app
+    deploy:
+      replicas: 1
+      labels:
+        feature.description: "UI"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  spark:
+    hostname: myhero_spark
+    image: hpreston/myhero_spark
+    networks:
+      - "default"
+    ports:
+    - 10501:5000/tcp
+    volumes:
+    - /docker/myhero/myhero_spark:/app:rw
+    environment:
+      - myhero_app_key=APP KEY
+      - myhero_app_server=http://myhero_app:5000
+      - spark_token=CISCO SPARK TOKEN
+      - myhero_spark_bot_email=CISCO SPARK MAIL
+      - myhero_spark_bot_url=http://PUBLIC IP:10501
+      - myhero_spark_bot_secret=SPARK KEY
+      - myhero_spark_roomid=CISCO SPARK ROOMID
+    depends_on:
+    - app
+    deploy:
+      replicas: 1
+      labels:
+        feature.description: "Spark"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
+  tropo:
+    hostname: myhero_tropo
+    image: hpreston/myhero_tropo
+    networks:
+      - "default"
+    ports:
+    - 10601:5000/tcp
+    volumes:
+    - /docker/myhero/myhero_tropo:/app:rw
+    environment:
+      - myhero_app_key=APP KEY
+      - myhero_app_server=http://myhero_app:5000
+      - myhero_tropo_secret=TROPO APP
+      - myhero_tropo_user=CISCO TROPO USER
+      - myhero_tropo_pass=CISCO TROPO PASS
+      - myhero_tropo_prefix=CISCO TROPO PREFIX
+      - myhero_tropo_url=http://PUBLIC IP:10601
+    depends_on:
+    - app
+    deploy:
+      replicas: 1
+      labels:
+        feature.description: "Tropo"
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: any
+
